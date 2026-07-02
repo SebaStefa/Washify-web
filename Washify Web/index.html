@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: #0D0D0D; }
+    * { box-sizing: border-box; }
+    @keyframes wf-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-18px); } }
+    @keyframes wf-fade-up { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</helmet>
+
+<div style="font-family:'Hanken Grotesk',sans-serif; color:#0D0D0D; background:#F5EDE2;">
+
+  <!-- ============ NAV ============ -->
+  <header style="position:fixed; top:0; left:0; right:0; z-index:50; display:flex; align-items:center; justify-content:space-between; padding:20px 48px; background:rgba(13,13,13,0.72); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);">
+    <a href="#inicio" style="display:flex; align-items:center; text-decoration:none;">
+      <img src="assets/Washify_Logo-Light.png" alt="Washify" style="height:34px; display:block;">
+    </a>
+    <nav style="display:flex; align-items:center; gap:36px;">
+      <a href="#clientes" style="font-size:15px; font-weight:600; color:#F5EDE2; text-decoration:none;" style-hover="color:#7DA5ED;">Para vos</a>
+      <a href="#lavaderos" style="font-size:15px; font-weight:600; color:#F5EDE2; text-decoration:none;" style-hover="color:#7DA5ED;">Para lavaderos</a>
+      <a href="#contacto" style="font-size:15px; font-weight:700; color:#0D0D0D; background:#7DA5ED; padding:10px 22px; border-radius:999px; text-decoration:none;" style-hover="background:#F5EDE2;">Sumá tu lavadero</a>
+    </nav>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section id="inicio" data-screen-label="Hero" style="position:relative; min-height:100vh; background:#0D0D0D; overflow:hidden; display:flex; align-items:center;">
+    <canvas ref="{{ bubbleCanvas }}" style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none;"></canvas>
+    <img src="assets/Washify_Icono-Blue.png" alt="" style="position:absolute; right:-140px; top:50%; margin-top:-330px; width:660px; opacity:0.92; pointer-events:none; animation:wf-float 7s ease-in-out infinite;">
+    <div style="position:relative; z-index:2; max-width:1200px; margin:0 auto; padding:160px 48px 120px; width:100%;">
+      <div style="animation:wf-fade-up 0.9s ease-out both;">
+        <div style="font-size:15px; font-weight:800; letter-spacing:0.22em; text-transform:uppercase; color:#7DA5ED; margin-bottom:28px;">Lavá tu auto sin esperar</div>
+        <h1 style="font-size:clamp(64px, 9vw, 132px); line-height:0.92; font-weight:900; letter-spacing:-0.04em; color:#F5EDE2; margin:0; text-wrap:balance;">La fila<br>ya fue.</h1>
+        <p style="font-size:clamp(19px, 2vw, 24px); line-height:1.45; font-weight:500; color:#b9b3a8; max-width:480px; margin:36px 0 0;">Washify conecta tu auto con el lavadero más cerca tuyo. Reservá en segundos, llegá sin filas y seguí tu lavado en vivo.</p>
+        <div style="display:flex; flex-wrap:wrap; gap:16px; margin-top:48px;">
+          <a href="#clientes" style="display:inline-flex; align-items:center; gap:12px; background:#7DA5ED; color:#0D0D0D; font-family:inherit; font-size:17px; font-weight:800; padding:18px 36px; border-radius:999px; text-decoration:none; transition:transform 0.2s;" style-hover="transform:translateY(-3px);">Descargá la app</a>
+          <a href="#lavaderos" style="display:inline-flex; align-items:center; gap:12px; background:transparent; color:#F5EDE2; font-size:17px; font-weight:700; padding:18px 36px; border-radius:999px; border:2px solid #3a3a36; text-decoration:none; transition:border-color 0.2s;" style-hover="border-color:#7DA5ED;">Tengo un lavadero</a>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:24px; margin-top:88px; animation:wf-fade-up 0.9s 0.25s ease-out both;">
+        <span style="font-size:14px; font-weight:800; letter-spacing:0.16em; text-transform:uppercase; color:#F5EDE2;">Reservá</span>
+        <span style="width:6px; height:6px; border-radius:999px; background:#7DA5ED;"></span>
+        <span style="font-size:14px; font-weight:800; letter-spacing:0.16em; text-transform:uppercase; color:#F5EDE2;">Llegá</span>
+        <span style="width:6px; height:6px; border-radius:999px; background:#7DA5ED;"></span>
+        <span style="font-size:14px; font-weight:800; letter-spacing:0.16em; text-transform:uppercase; color:#F5EDE2;">Seguí</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ QUÉ ES ============ -->
+  <section data-screen-label="Qué es Washify" style="background:#F5EDE2; padding:140px 48px;">
+    <div style="max-width:1200px; margin:0 auto;">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;">
+        <div>
+          <div style="font-size:14px; font-weight:800; letter-spacing:0.2em; text-transform:uppercase; color:#7DA5ED; margin-bottom:24px;">Qué es Washify</div>
+          <h2 style="font-size:clamp(40px, 4.5vw, 64px); line-height:1.02; font-weight:900; letter-spacing:-0.03em; margin:0; text-wrap:balance;">Tu tiempo vale más que una fila.</h2>
+        </div>
+        <p style="font-size:20px; line-height:1.6; font-weight:500; color:#4a4a44; margin:0;">Washify es la plataforma que une a los que quieren el auto impecable con los lavaderos que lo hacen posible. Vos reservás y seguís todo desde la app; el lavadero gestiona sus turnos sin caos. Todos ganan tiempo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CLIENTES ============ -->
+  <section id="clientes" data-screen-label="Para clientes" style="background:#F5EDE2; padding:0 48px 150px;">
+    <div style="max-width:1200px; margin:0 auto;">
+      <div style="font-size:14px; font-weight:800; letter-spacing:0.2em; text-transform:uppercase; color:#7DA5ED; margin-bottom:24px;">Para vos</div>
+      <h2 style="font-size:clamp(38px, 4vw, 58px); line-height:1.02; font-weight:900; letter-spacing:-0.03em; margin:0 0 72px; max-width:640px; text-wrap:balance;">Lavá tu auto en tres pasos.</h2>
+      <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:28px;">
+        <sc-for list="{{ steps }}" as="step" hint-placeholder-count="3">
+          <div style="background:#fff; border-radius:28px; padding:44px 40px 48px; transition:transform 0.25s ease, box-shadow 0.25s ease;" style-hover="transform:translateY(-8px); box-shadow:0 24px 60px rgba(13,13,13,0.10);">
+            <div style="font-size:56px; font-weight:900; letter-spacing:-0.03em; color:#7DA5ED;">{{ step.num }}</div>
+            <div style="font-size:28px; font-weight:800; letter-spacing:-0.01em; margin-top:18px;">{{ step.title }}</div>
+            <p style="font-size:17px; line-height:1.55; font-weight:500; color:#5a5a54; margin:12px 0 0;">{{ step.desc }}</p>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex; align-items:center; gap:24px; margin-top:64px; flex-wrap:wrap;">
+        <a href="#" style="display:inline-flex; align-items:center; background:#0D0D0D; color:#F5EDE2; font-size:17px; font-weight:800; padding:18px 36px; border-radius:999px; text-decoration:none; transition:background 0.2s;" style-hover="background:#7DA5ED; color:#0D0D0D;">Descargá la app</a>
+        <span style="font-size:15px; font-weight:600; color:#8a8a82;">Disponible próximamente en App Store y Google Play.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LAVADEROS ============ -->
+  <section id="lavaderos" data-screen-label="Para lavaderos" style="position:relative; background:#7DA5ED; padding:150px 48px; overflow:hidden;">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMaxYMin meet" style="position:absolute; top:0; right:0; height:100%; pointer-events:none; opacity:0.55;">
+      <g fill="none" stroke="#F5EDE2" stroke-width="40">
+        <circle cx="1440" cy="0" r="130"></circle>
+        <circle cx="1440" cy="0" r="260"></circle>
+        <circle cx="1440" cy="0" r="390"></circle>
+      </g>
+    </svg>
+    <div style="position:relative; max-width:1200px; margin:0 auto;">
+      <div style="font-size:14px; font-weight:800; letter-spacing:0.2em; text-transform:uppercase; color:#0D0D0D; margin-bottom:24px;">Para lavaderos</div>
+      <h2 style="font-size:clamp(40px, 4.5vw, 64px); line-height:1.0; font-weight:900; letter-spacing:-0.03em; color:#F5EDE2; margin:0; max-width:720px; text-wrap:balance;">Gestioná tu lavadero gratis. En serio, gratis.</h2>
+      <p style="font-size:20px; line-height:1.55; font-weight:500; color:#12245c; max-width:600px; margin:32px 0 0;">Te damos el sistema de gestión completo sin costo: turnos, agenda y estado de cada lavado. Y de yapa, un canal nuevo de reservas con los clientes de Washify.</p>
+      <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:28px; margin-top:72px;">
+        <sc-for list="{{ perks }}" as="perk" hint-placeholder-count="3">
+          <div style="background:rgba(245,237,226,0.94); border-radius:28px; padding:40px 36px;">
+            <div style="font-size:24px; font-weight:800; letter-spacing:-0.01em; color:#0D0D0D;">{{ perk.title }}</div>
+            <p style="font-size:17px; line-height:1.55; font-weight:500; color:#4a4a44; margin:12px 0 0;">{{ perk.desc }}</p>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex; align-items:center; gap:24px; margin-top:64px; flex-wrap:wrap;">
+        <a href="#contacto" style="display:inline-flex; align-items:center; background:#0D0D0D; color:#F5EDE2; font-size:17px; font-weight:800; padding:18px 36px; border-radius:999px; text-decoration:none; transition:transform 0.2s;" style-hover="transform:translateY(-3px);">Quiero sumarme →</a>
+        <span style="font-size:15px; font-weight:600; color:#12245c;">Nosotros te damos de alta y te acompañamos en la puesta en marcha.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACTO ============ -->
+  <section id="contacto" data-screen-label="Contacto lavaderos" style="background:#0D0D0D; padding:150px 48px;">
+    <div style="max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 1.1fr; gap:88px; align-items:start;">
+      <div>
+        <div style="font-size:14px; font-weight:800; letter-spacing:0.2em; text-transform:uppercase; color:#7DA5ED; margin-bottom:24px;">Contacto</div>
+        <h2 style="font-size:clamp(38px, 4vw, 56px); line-height:1.0; font-weight:900; letter-spacing:-0.03em; color:#F5EDE2; margin:0; text-wrap:balance;">Sumá tu lavadero a Washify.</h2>
+        <p style="font-size:19px; line-height:1.6; font-weight:500; color:#b9b3a8; margin:28px 0 0;">Dejanos tus datos y te contactamos para darte de alta. Sin costo, sin permanencia, sin letra chica.</p>
+        <div style="display:flex; flex-direction:column; gap:14px; margin-top:44px;">
+          <div style="display:flex; align-items:center; gap:14px;">
+            <span style="width:8px; height:8px; border-radius:999px; background:#7DA5ED;"></span>
+            <span style="font-size:16px; font-weight:600; color:#F5EDE2;">Alta y configuración a cargo nuestro</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:14px;">
+            <span style="width:8px; height:8px; border-radius:999px; background:#7DA5ED;"></span>
+            <span style="font-size:16px; font-weight:600; color:#F5EDE2;">Sistema de gestión 100% gratis</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:14px;">
+            <span style="width:8px; height:8px; border-radius:999px; background:#7DA5ED;"></span>
+            <span style="font-size:16px; font-weight:600; color:#F5EDE2;">Reservas de clientes Washify desde el día uno</span>
+          </div>
+        </div>
+      </div>
+      <sc-if value="{{ formSent }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#161613; border:1px solid #2a2a26; border-radius:28px; padding:64px 48px; text-align:center;">
+          <div style="width:72px; height:72px; border-radius:999px; background:#7DA5ED; color:#0D0D0D; font-size:34px; font-weight:900; display:flex; align-items:center; justify-content:center; margin:0 auto;">✓</div>
+          <div style="font-size:30px; font-weight:800; color:#F5EDE2; margin-top:28px;">¡Listo! Te vamos a contactar.</div>
+          <p style="font-size:17px; line-height:1.55; color:#b9b3a8; margin:14px 0 0;">En breve nos comunicamos para coordinar el alta de tu lavadero.</p>
+        </div>
+      </sc-if>
+      <sc-if value="{{ formNotSent }}" hint-placeholder-val="{{ true }}">
+        <form name="contacto-lavaderos" data-netlify="true" netlify-honeypot="bot-field" onSubmit="{{ submitForm }}" style="background:#161613; border:1px solid #2a2a26; border-radius:28px; padding:48px; display:flex; flex-direction:column; gap:22px;">
+          <input type="hidden" name="form-name" value="contacto-lavaderos">
+          <p style="display:none;">
+            <label>No completar: <input name="bot-field" tabindex="-1" autocomplete="off"></label>
+          </p>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:22px;">
+            <label style="display:flex; flex-direction:column; gap:8px;">
+              <span style="font-size:13px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#8a8a82;">Tu nombre</span>
+              <input required name="nombre" type="text" placeholder="Nombre y apellido" style="font-family:inherit; font-size:16px; font-weight:500; color:#F5EDE2; background:#0D0D0D; border:1px solid #2a2a26; border-radius:14px; padding:15px 18px; outline:none;" style-focus="border-color:#7DA5ED;">
+            </label>
+            <label style="display:flex; flex-direction:column; gap:8px;">
+              <span style="font-size:13px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#8a8a82;">Lavadero</span>
+              <input required name="lavadero" type="text" placeholder="Nombre del lavadero" style="font-family:inherit; font-size:16px; font-weight:500; color:#F5EDE2; background:#0D0D0D; border:1px solid #2a2a26; border-radius:14px; padding:15px 18px; outline:none;" style-focus="border-color:#7DA5ED;">
+            </label>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:22px;">
+            <label style="display:flex; flex-direction:column; gap:8px;">
+              <span style="font-size:13px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#8a8a82;">Teléfono / WhatsApp</span>
+              <input required name="telefono" type="tel" placeholder="+54 9 ..." style="font-family:inherit; font-size:16px; font-weight:500; color:#F5EDE2; background:#0D0D0D; border:1px solid #2a2a26; border-radius:14px; padding:15px 18px; outline:none;" style-focus="border-color:#7DA5ED;">
+            </label>
+            <label style="display:flex; flex-direction:column; gap:8px;">
+              <span style="font-size:13px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#8a8a82;">Ciudad / Zona</span>
+              <input required name="ciudad" type="text" placeholder="Ej: Palermo, CABA" style="font-family:inherit; font-size:16px; font-weight:500; color:#F5EDE2; background:#0D0D0D; border:1px solid #2a2a26; border-radius:14px; padding:15px 18px; outline:none;" style-focus="border-color:#7DA5ED;">
+            </label>
+          </div>
+          <label style="display:flex; flex-direction:column; gap:8px;">
+            <span style="font-size:13px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#8a8a82;">Contanos de tu lavadero <span style="text-transform:none; letter-spacing:0; font-weight:500;">(opcional)</span></span>
+            <textarea name="mensaje" rows="4" placeholder="Cantidad de puestos, servicios que ofrecés, horarios..." style="font-family:inherit; font-size:16px; font-weight:500; color:#F5EDE2; background:#0D0D0D; border:1px solid #2a2a26; border-radius:14px; padding:15px 18px; outline:none; resize:vertical;" style-focus="border-color:#7DA5ED;"></textarea>
+          </label>
+          <button type="submit" style="font-family:inherit; font-size:17px; font-weight:800; color:#0D0D0D; background:#7DA5ED; border:none; border-radius:999px; padding:18px 36px; cursor:pointer; transition:transform 0.2s;" style-hover="transform:translateY(-2px);">{{ submitLabel }}</button>
+          <sc-if value="{{ formError }}" hint-placeholder-val="{{ false }}">
+            <p style="font-size:15px; font-weight:600; color:#e08a8a; margin:0;">Uy, algo falló al enviar el formulario. Probá de nuevo o escribinos por WhatsApp.</p>
+          </sc-if>
+        </form>
+      </sc-if>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer style="background:#0D0D0D; border-top:1px solid #1e1e1a; padding:44px 48px;">
+    <div style="max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px;">
+      <img src="assets/Washify_Logo-Light.png" alt="Washify" style="height:28px; display:block;">
+      <div style="display:flex; align-items:center; gap:28px;">
+        <span style="font-size:14px; font-weight:600; color:#6a6a62;">Reservá. Llegá. Seguí.</span>
+        <span style="font-size:14px; font-weight:500; color:#4a4a44;">© 2026 Washify</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+class Component extends DCLogic {
+  state = { sent: false, sending: false, error: false };
+
+  bubbleRef = React.createRef();
+
+  renderVals() {
+    return {
+      bubbleCanvas: this.bubbleRef,
+      formSent: this.state.sent,
+      formNotSent: !this.state.sent,
+      formError: this.state.error,
+      sending: this.state.sending,
+      submitLabel: this.state.sending ? "Enviando..." : "Quiero usar Washify",
+      submitForm: (e) => {
+        e.preventDefault();
+        if (this.state.sending) return;
+        const form = e.target;
+        const data = new FormData(form);
+        this.setState({ sending: true, error: false });
+        fetch("/", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams(data).toString(),
+        })
+          .then(() => this.setState({ sent: true, sending: false }))
+          .catch(() => this.setState({ sending: false, error: true }));
+      },
+      steps: [
+        { num: "01", title: "Reservá", desc: "Elegí el lavadero más cerca, el servicio y el horario que te quede cómodo." },
+        { num: "02", title: "Llegá", desc: "Tu turno ya está listo. Dejás el auto y seguís con tu día, sin filas." },
+        { num: "03", title: "Seguí en vivo", desc: "Mirá el estado de tu lavado desde el celular y pasá a buscarlo justo a tiempo." },
+      ],
+      perks: [
+        { title: "Turnos sin caos", desc: "Agenda digital con todos tus turnos ordenados: los de la app y los de siempre." },
+        { title: "Más autos por día", desc: "Los clientes de Washify te encuentran y reservan solos, incluso fuera de horario." },
+        { title: "Todo bajo control", desc: "Estado de cada lavado, historial y clientes en un solo lugar. Desde cualquier dispositivo." },
+      ],
+    };
+  }
+
+  componentDidMount() {
+    const canvas = this.bubbleRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    let W, H, raf;
+    const DPR = Math.min(window.devicePixelRatio || 1, 2);
+
+    const resize = () => {
+      W = canvas.clientWidth; H = canvas.clientHeight;
+      canvas.width = W * DPR; canvas.height = H * DPR;
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    };
+    resize();
+    this._onResize = resize;
+    window.addEventListener("resize", resize);
+
+    const rand = (a, b) => a + Math.random() * (b - a);
+    const makeBubble = (startAnywhere) => ({
+      x: rand(0, 1),
+      y: startAnywhere ? rand(0, 1.1) : 1.1,
+      r: rand(2.5, 11),
+      speed: rand(0.014, 0.05),
+      drift: rand(-0.012, 0.012),
+      phase: rand(0, Math.PI * 2),
+      alpha: rand(0.10, 0.34),
+    });
+    const bubbles = Array.from({ length: 26 }, () => makeBubble(true));
+
+    let last = performance.now();
+    const tick = (now) => {
+      const dt = Math.min((now - last) / 1000, 0.05);
+      last = now;
+      ctx.clearRect(0, 0, W, H);
+      for (const b of bubbles) {
+        b.y -= b.speed * dt;
+        b.phase += dt * 1.4;
+        const x = (b.x + Math.sin(b.phase) * b.drift) * W;
+        const y = b.y * H;
+        if (b.y < -0.06) Object.assign(b, makeBubble(false));
+        ctx.beginPath();
+        ctx.arc(x, y, b.r, 0, Math.PI * 2);
+        ctx.strokeStyle = "rgba(125,165,237," + b.alpha.toFixed(3) + ")";
+        ctx.lineWidth = 1.6;
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(x - b.r * 0.3, y - b.r * 0.3, b.r * 0.22, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(245,237,226," + (b.alpha * 0.7).toFixed(3) + ")";
+        ctx.fill();
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    this._cleanup = () => { cancelAnimationFrame(raf); window.removeEventListener("resize", resize); };
+  }
+
+  componentWillUnmount() {
+    if (this._cleanup) this._cleanup();
+  }
+}
+</script>
+</body>
+</html>
