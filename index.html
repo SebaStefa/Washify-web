@@ -23,77 +23,87 @@
 <div style="font-family:'Hanken Grotesk',sans-serif; color:#0D0D0D; background:#F5EDE2;">
 
   <!-- ============ NAV ============ -->
-  <header style="position:fixed; top:0; left:0; right:0; z-index:50; display:flex; align-items:center; justify-content:space-between; padding:20px 48px; background:rgba(13,13,13,0.72); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);">
-    <a href="#inicio" style="display:flex; align-items:center; text-decoration:none;">
-      <img src="assets/Washify_Logo-Light.png" alt="Washify" style="height:34px; display:block;">
+  <header style="{{ headerStyle }}">
+    <a href="#inicio" onClick="{{ closeMenu }}" style="display:flex; align-items:center; text-decoration:none; position:relative; z-index:2;">
+      <img src="assets/Washify_Logo-Light.png" alt="Washify" style="{{ logoStyle }}">
     </a>
-    <nav style="display:flex; align-items:center; gap:36px;">
+    <nav style="{{ navStyle }}">
       <a href="#clientes" style="font-size:15px; font-weight:600; color:#F5EDE2; text-decoration:none;" style-hover="color:#7DA5ED;">Para vos</a>
       <a href="#lavaderos" style="font-size:15px; font-weight:600; color:#F5EDE2; text-decoration:none;" style-hover="color:#7DA5ED;">Para lavaderos</a>
       <a href="#contacto" style="font-size:15px; font-weight:700; color:#0D0D0D; background:#7DA5ED; padding:10px 22px; border-radius:999px; text-decoration:none;" style-hover="background:#F5EDE2;">Sumá tu lavadero</a>
     </nav>
+    <button aria-label="Menú" onClick="{{ toggleMenu }}" style="{{ menuButtonStyle }}">
+      <span style="{{ burgerLine1Style }}"></span>
+      <span style="{{ burgerLine2Style }}"></span>
+      <span style="{{ burgerLine3Style }}"></span>
+    </button>
+    <div style="{{ mobileMenuStyle }}">
+      <a href="#clientes" onClick="{{ closeMenu }}" style="font-size:20px; font-weight:700; color:#F5EDE2; text-decoration:none;">Para vos</a>
+      <a href="#lavaderos" onClick="{{ closeMenu }}" style="font-size:20px; font-weight:700; color:#F5EDE2; text-decoration:none;">Para lavaderos</a>
+      <a href="#contacto" onClick="{{ closeMenu }}" style="font-size:17px; font-weight:800; color:#0D0D0D; background:#7DA5ED; padding:16px 28px; border-radius:999px; text-decoration:none; text-align:center;">Sumá tu lavadero</a>
+    </div>
   </header>
 
   <!-- ============ HERO ============ -->
   <section id="inicio" data-screen-label="Hero" style="position:relative; min-height:100vh; background:#0D0D0D; overflow:hidden; display:flex; align-items:center;">
     <canvas ref="{{ bubbleCanvas }}" style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none;"></canvas>
-    <img src="assets/Washify_Icono-Blue.png" alt="" style="position:absolute; right:-140px; top:50%; margin-top:-330px; width:660px; opacity:0.92; pointer-events:none; animation:wf-float 7s ease-in-out infinite;">
-    <div style="position:relative; z-index:2; max-width:1200px; margin:0 auto; padding:160px 48px 120px; width:100%;">
+    <img src="assets/Washify_Icono-Blue.png" alt="" style="{{ heroIconStyle }}">
+    <div style="{{ heroWrapStyle }}">
       <div style="animation:wf-fade-up 0.9s ease-out both;">
-        <div style="font-size:15px; font-weight:800; letter-spacing:0.22em; text-transform:uppercase; color:#7DA5ED; margin-bottom:28px;">Lavá tu auto sin esperar</div>
-        <h1 style="font-size:clamp(64px, 9vw, 132px); line-height:0.92; font-weight:900; letter-spacing:-0.04em; color:#F5EDE2; margin:0; text-wrap:balance;">La fila<br>ya fue.</h1>
-        <p style="font-size:clamp(19px, 2vw, 24px); line-height:1.45; font-weight:500; color:#b9b3a8; max-width:480px; margin:36px 0 0;">Washify conecta tu auto con el lavadero más cerca tuyo. Reservá en segundos, llegá sin filas y seguí tu lavado en vivo.</p>
-        <div style="display:flex; flex-wrap:wrap; gap:16px; margin-top:48px;">
-          <a href="#clientes" style="display:inline-flex; align-items:center; gap:12px; background:#7DA5ED; color:#0D0D0D; font-family:inherit; font-size:17px; font-weight:800; padding:18px 36px; border-radius:999px; text-decoration:none; transition:transform 0.2s;" style-hover="transform:translateY(-3px);">Descargá la app</a>
-          <a href="#lavaderos" style="display:inline-flex; align-items:center; gap:12px; background:transparent; color:#F5EDE2; font-size:17px; font-weight:700; padding:18px 36px; border-radius:999px; border:2px solid #3a3a36; text-decoration:none; transition:border-color 0.2s;" style-hover="border-color:#7DA5ED;">Tengo un lavadero</a>
+        <div style="{{ eyebrowStyle }}">Lavá tu auto sin esperar</div>
+        <h1 style="{{ heroTitleStyle }}">La fila<br>ya fue.</h1>
+        <p style="{{ heroSubStyle }}">Washify conecta tu auto con el lavadero más cerca tuyo. Reservá en segundos, llegá sin filas y seguí tu lavado en vivo.</p>
+        <div style="{{ heroCtaRowStyle }}">
+          <a href="#clientes" style="{{ ctaPrimaryStyle }}" style-hover="transform:translateY(-3px);">Descargá la app</a>
+          <a href="#lavaderos" style="{{ ctaSecondaryStyle }}" style-hover="border-color:#7DA5ED;">Tengo un lavadero</a>
         </div>
       </div>
-      <div style="display:flex; align-items:center; gap:24px; margin-top:88px; animation:wf-fade-up 0.9s 0.25s ease-out both;">
+      <div style="{{ heroStepsRowStyle }}">
         <span style="font-size:14px; font-weight:800; letter-spacing:0.16em; text-transform:uppercase; color:#F5EDE2;">Reservá</span>
-        <span style="width:6px; height:6px; border-radius:999px; background:#7DA5ED;"></span>
+        <span style="width:6px; height:6px; border-radius:999px; background:#7DA5ED; flex-shrink:0;"></span>
         <span style="font-size:14px; font-weight:800; letter-spacing:0.16em; text-transform:uppercase; color:#F5EDE2;">Llegá</span>
-        <span style="width:6px; height:6px; border-radius:999px; background:#7DA5ED;"></span>
+        <span style="width:6px; height:6px; border-radius:999px; background:#7DA5ED; flex-shrink:0;"></span>
         <span style="font-size:14px; font-weight:800; letter-spacing:0.16em; text-transform:uppercase; color:#F5EDE2;">Seguí</span>
       </div>
     </div>
   </section>
 
   <!-- ============ QUÉ ES ============ -->
-  <section data-screen-label="Qué es Washify" style="background:#F5EDE2; padding:140px 48px;">
+  <section data-screen-label="Qué es Washify" style="{{ sectionPadStyle }}">
     <div style="max-width:1200px; margin:0 auto;">
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;">
+      <div style="{{ queEsGridStyle }}">
         <div>
-          <div style="font-size:14px; font-weight:800; letter-spacing:0.2em; text-transform:uppercase; color:#7DA5ED; margin-bottom:24px;">Qué es Washify</div>
-          <h2 style="font-size:clamp(40px, 4.5vw, 64px); line-height:1.02; font-weight:900; letter-spacing:-0.03em; margin:0; text-wrap:balance;">Tu tiempo vale más que una fila.</h2>
+          <div style="{{ eyebrowLightStyle }}">Qué es Washify</div>
+          <h2 style="{{ h2Style }}">Tu tiempo vale más que una fila.</h2>
         </div>
-        <p style="font-size:20px; line-height:1.6; font-weight:500; color:#4a4a44; margin:0;">Washify es la plataforma que une a los que quieren el auto impecable con los lavaderos que lo hacen posible. Vos reservás y seguís todo desde la app; el lavadero gestiona sus turnos sin caos. Todos ganan tiempo.</p>
+        <p style="{{ bodyTextStyle }}">Washify es la plataforma que une a los que quieren el auto impecable con los lavaderos que lo hacen posible. Vos reservás y seguís todo desde la app; el lavadero gestiona sus turnos sin caos. Todos ganan tiempo.</p>
       </div>
     </div>
   </section>
 
   <!-- ============ CLIENTES ============ -->
-  <section id="clientes" data-screen-label="Para clientes" style="background:#F5EDE2; padding:0 48px 150px;">
+  <section id="clientes" data-screen-label="Para clientes" style="{{ clientesSectionStyle }}">
     <div style="max-width:1200px; margin:0 auto;">
-      <div style="font-size:14px; font-weight:800; letter-spacing:0.2em; text-transform:uppercase; color:#7DA5ED; margin-bottom:24px;">Para vos</div>
-      <h2 style="font-size:clamp(38px, 4vw, 58px); line-height:1.02; font-weight:900; letter-spacing:-0.03em; margin:0 0 72px; max-width:640px; text-wrap:balance;">Lavá tu auto en tres pasos.</h2>
-      <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:28px;">
+      <div style="{{ eyebrowLightStyle }}">Para vos</div>
+      <h2 style="{{ h2WithMarginStyle }}">Lavá tu auto en tres pasos.</h2>
+      <div style="{{ stepsGridStyle }}">
         <sc-for list="{{ steps }}" as="step" hint-placeholder-count="3">
-          <div style="background:#fff; border-radius:28px; padding:44px 40px 48px; transition:transform 0.25s ease, box-shadow 0.25s ease;" style-hover="transform:translateY(-8px); box-shadow:0 24px 60px rgba(13,13,13,0.10);">
+          <div style="{{ stepCardStyle }}" style-hover="transform:translateY(-8px); box-shadow:0 24px 60px rgba(13,13,13,0.10);">
             <div style="font-size:56px; font-weight:900; letter-spacing:-0.03em; color:#7DA5ED;">{{ step.num }}</div>
             <div style="font-size:28px; font-weight:800; letter-spacing:-0.01em; margin-top:18px;">{{ step.title }}</div>
             <p style="font-size:17px; line-height:1.55; font-weight:500; color:#5a5a54; margin:12px 0 0;">{{ step.desc }}</p>
           </div>
         </sc-for>
       </div>
-      <div style="display:flex; align-items:center; gap:24px; margin-top:64px; flex-wrap:wrap;">
-        <a href="#" style="display:inline-flex; align-items:center; background:#0D0D0D; color:#F5EDE2; font-size:17px; font-weight:800; padding:18px 36px; border-radius:999px; text-decoration:none; transition:background 0.2s;" style-hover="background:#7DA5ED; color:#0D0D0D;">Descargá la app</a>
+      <div style="{{ ctaRowWrapStyle }}">
+        <a href="#" style="display:inline-flex; align-items:center; justify-content:center; background:#0D0D0D; color:#F5EDE2; font-size:17px; font-weight:800; padding:18px 36px; border-radius:999px; text-decoration:none; transition:background 0.2s;" style-hover="background:#7DA5ED; color:#0D0D0D;">Descargá la app</a>
         <span style="font-size:15px; font-weight:600; color:#8a8a82;">Disponible próximamente en App Store y Google Play.</span>
       </div>
     </div>
   </section>
 
   <!-- ============ LAVADEROS ============ -->
-  <section id="lavaderos" data-screen-label="Para lavaderos" style="position:relative; background:#7DA5ED; padding:150px 48px; overflow:hidden;">
+  <section id="lavaderos" data-screen-label="Para lavaderos" style="{{ lavaderosSectionStyle }}">
     <svg viewBox="0 0 1440 900" preserveAspectRatio="xMaxYMin meet" style="position:absolute; top:0; right:0; height:100%; pointer-events:none; opacity:0.55;">
       <g fill="none" stroke="#F5EDE2" stroke-width="40">
         <circle cx="1440" cy="0" r="130"></circle>
@@ -103,9 +113,9 @@
     </svg>
     <div style="position:relative; max-width:1200px; margin:0 auto;">
       <div style="font-size:14px; font-weight:800; letter-spacing:0.2em; text-transform:uppercase; color:#0D0D0D; margin-bottom:24px;">Para lavaderos</div>
-      <h2 style="font-size:clamp(40px, 4.5vw, 64px); line-height:1.0; font-weight:900; letter-spacing:-0.03em; color:#F5EDE2; margin:0; max-width:720px; text-wrap:balance;">Gestioná tu lavadero gratis. En serio, gratis.</h2>
-      <p style="font-size:20px; line-height:1.55; font-weight:500; color:#12245c; max-width:600px; margin:32px 0 0;">Te damos el sistema de gestión completo sin costo: turnos, agenda y estado de cada lavado. Y de yapa, un canal nuevo de reservas con los clientes de Washify.</p>
-      <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:28px; margin-top:72px;">
+      <h2 style="{{ lavaderosH2Style }}">Gestioná tu lavadero gratis. En serio, gratis.</h2>
+      <p style="{{ lavaderosBodyStyle }}">Te damos el sistema de gestión completo sin costo: turnos, agenda y estado de cada lavado. Y de yapa, un canal nuevo de reservas con los clientes de Washify.</p>
+      <div style="{{ perksGridStyle }}">
         <sc-for list="{{ perks }}" as="perk" hint-placeholder-count="3">
           <div style="background:rgba(245,237,226,0.94); border-radius:28px; padding:40px 36px;">
             <div style="font-size:24px; font-weight:800; letter-spacing:-0.01em; color:#0D0D0D;">{{ perk.title }}</div>
@@ -113,49 +123,49 @@
           </div>
         </sc-for>
       </div>
-      <div style="display:flex; align-items:center; gap:24px; margin-top:64px; flex-wrap:wrap;">
-        <a href="#contacto" style="display:inline-flex; align-items:center; background:#0D0D0D; color:#F5EDE2; font-size:17px; font-weight:800; padding:18px 36px; border-radius:999px; text-decoration:none; transition:transform 0.2s;" style-hover="transform:translateY(-3px);">Quiero sumarme →</a>
+      <div style="{{ ctaRowWrapStyle }}">
+        <a href="#contacto" style="display:inline-flex; align-items:center; justify-content:center; background:#0D0D0D; color:#F5EDE2; font-size:17px; font-weight:800; padding:18px 36px; border-radius:999px; text-decoration:none; transition:transform 0.2s;" style-hover="transform:translateY(-3px);">Quiero sumarme →</a>
         <span style="font-size:15px; font-weight:600; color:#12245c;">Nosotros te damos de alta y te acompañamos en la puesta en marcha.</span>
       </div>
     </div>
   </section>
 
   <!-- ============ CONTACTO ============ -->
-  <section id="contacto" data-screen-label="Contacto lavaderos" style="background:#0D0D0D; padding:150px 48px;">
-    <div style="max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 1.1fr; gap:88px; align-items:start;">
+  <section id="contacto" data-screen-label="Contacto lavaderos" style="{{ contactSectionStyle }}">
+    <div style="{{ contactGridStyle }}">
       <div>
-        <div style="font-size:14px; font-weight:800; letter-spacing:0.2em; text-transform:uppercase; color:#7DA5ED; margin-bottom:24px;">Contacto</div>
-        <h2 style="font-size:clamp(38px, 4vw, 56px); line-height:1.0; font-weight:900; letter-spacing:-0.03em; color:#F5EDE2; margin:0; text-wrap:balance;">Sumá tu lavadero a Washify.</h2>
-        <p style="font-size:19px; line-height:1.6; font-weight:500; color:#b9b3a8; margin:28px 0 0;">Dejanos tus datos y te contactamos para darte de alta. Sin costo, sin permanencia, sin letra chica.</p>
+        <div style="{{ eyebrowLightStyle }}">Contacto</div>
+        <h2 style="{{ contactH2Style }}">Sumá tu lavadero a Washify.</h2>
+        <p style="{{ contactBodyStyle }}">Dejanos tus datos y te contactamos para darte de alta. Sin costo, sin permanencia, sin letra chica.</p>
         <div style="display:flex; flex-direction:column; gap:14px; margin-top:44px;">
           <div style="display:flex; align-items:center; gap:14px;">
-            <span style="width:8px; height:8px; border-radius:999px; background:#7DA5ED;"></span>
+            <span style="width:8px; height:8px; border-radius:999px; background:#7DA5ED; flex-shrink:0;"></span>
             <span style="font-size:16px; font-weight:600; color:#F5EDE2;">Alta y configuración a cargo nuestro</span>
           </div>
           <div style="display:flex; align-items:center; gap:14px;">
-            <span style="width:8px; height:8px; border-radius:999px; background:#7DA5ED;"></span>
+            <span style="width:8px; height:8px; border-radius:999px; background:#7DA5ED; flex-shrink:0;"></span>
             <span style="font-size:16px; font-weight:600; color:#F5EDE2;">Sistema de gestión 100% gratis</span>
           </div>
           <div style="display:flex; align-items:center; gap:14px;">
-            <span style="width:8px; height:8px; border-radius:999px; background:#7DA5ED;"></span>
+            <span style="width:8px; height:8px; border-radius:999px; background:#7DA5ED; flex-shrink:0;"></span>
             <span style="font-size:16px; font-weight:600; color:#F5EDE2;">Reservas de clientes Washify desde el día uno</span>
           </div>
         </div>
       </div>
       <sc-if value="{{ formSent }}" hint-placeholder-val="{{ false }}">
-        <div style="background:#161613; border:1px solid #2a2a26; border-radius:28px; padding:64px 48px; text-align:center;">
+        <div style="{{ successCardStyle }}">
           <div style="width:72px; height:72px; border-radius:999px; background:#7DA5ED; color:#0D0D0D; font-size:34px; font-weight:900; display:flex; align-items:center; justify-content:center; margin:0 auto;">✓</div>
           <div style="font-size:30px; font-weight:800; color:#F5EDE2; margin-top:28px;">¡Listo! Te vamos a contactar.</div>
           <p style="font-size:17px; line-height:1.55; color:#b9b3a8; margin:14px 0 0;">En breve nos comunicamos para coordinar el alta de tu lavadero.</p>
         </div>
       </sc-if>
       <sc-if value="{{ formNotSent }}" hint-placeholder-val="{{ true }}">
-        <form name="contacto-lavaderos" data-netlify="true" netlify-honeypot="bot-field" onSubmit="{{ submitForm }}" style="background:#161613; border:1px solid #2a2a26; border-radius:28px; padding:48px; display:flex; flex-direction:column; gap:22px;">
+        <form name="contacto-lavaderos" data-netlify="true" netlify-honeypot="bot-field" onSubmit="{{ submitForm }}" style="{{ formCardStyle }}">
           <input type="hidden" name="form-name" value="contacto-lavaderos">
           <p style="display:none;">
             <label>No completar: <input name="bot-field" tabindex="-1" autocomplete="off"></label>
           </p>
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:22px;">
+          <div style="{{ formRowStyle }}">
             <label style="display:flex; flex-direction:column; gap:8px;">
               <span style="font-size:13px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#8a8a82;">Tu nombre</span>
               <input required name="nombre" type="text" placeholder="Nombre y apellido" style="font-family:inherit; font-size:16px; font-weight:500; color:#F5EDE2; background:#0D0D0D; border:1px solid #2a2a26; border-radius:14px; padding:15px 18px; outline:none;" style-focus="border-color:#7DA5ED;">
@@ -165,7 +175,7 @@
               <input required name="lavadero" type="text" placeholder="Nombre del lavadero" style="font-family:inherit; font-size:16px; font-weight:500; color:#F5EDE2; background:#0D0D0D; border:1px solid #2a2a26; border-radius:14px; padding:15px 18px; outline:none;" style-focus="border-color:#7DA5ED;">
             </label>
           </div>
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:22px;">
+          <div style="{{ formRowStyle }}">
             <label style="display:flex; flex-direction:column; gap:8px;">
               <span style="font-size:13px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#8a8a82;">Teléfono / WhatsApp</span>
               <input required name="telefono" type="tel" placeholder="+54 9 ..." style="font-family:inherit; font-size:16px; font-weight:500; color:#F5EDE2; background:#0D0D0D; border:1px solid #2a2a26; border-radius:14px; padding:15px 18px; outline:none;" style-focus="border-color:#7DA5ED;">
@@ -179,7 +189,7 @@
             <span style="font-size:13px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#8a8a82;">Contanos de tu lavadero <span style="text-transform:none; letter-spacing:0; font-weight:500;">(opcional)</span></span>
             <textarea name="mensaje" rows="4" placeholder="Cantidad de puestos, servicios que ofrecés, horarios..." style="font-family:inherit; font-size:16px; font-weight:500; color:#F5EDE2; background:#0D0D0D; border:1px solid #2a2a26; border-radius:14px; padding:15px 18px; outline:none; resize:vertical;" style-focus="border-color:#7DA5ED;"></textarea>
           </label>
-          <button type="submit" style="font-family:inherit; font-size:17px; font-weight:800; color:#0D0D0D; background:#7DA5ED; border:none; border-radius:999px; padding:18px 36px; cursor:pointer; transition:transform 0.2s;" style-hover="transform:translateY(-2px);">{{ submitLabel }}</button>
+          <button type="submit" style="font-family:inherit; font-size:17px; font-weight:800; color:#0D0D0D; background:#7DA5ED; border:none; border-radius:999px; padding:18px 36px; cursor:pointer; transition:transform 0.2s; margin-top:8px;" style-hover="transform:translateY(-2px);">{{ submitLabel }}</button>
           <sc-if value="{{ formError }}" hint-placeholder-val="{{ false }}">
             <p style="font-size:15px; font-weight:600; color:#e08a8a; margin:0;">Uy, algo falló al enviar el formulario. Probá de nuevo o escribinos por WhatsApp.</p>
           </sc-if>
@@ -190,9 +200,9 @@
 
   <!-- ============ FOOTER ============ -->
   <footer style="background:#0D0D0D; border-top:1px solid #1e1e1a; padding:44px 48px;">
-    <div style="max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px;">
+    <div style="{{ footerRowStyle }}">
       <img src="assets/Washify_Logo-Light.png" alt="Washify" style="height:28px; display:block;">
-      <div style="display:flex; align-items:center; gap:28px;">
+      <div style="{{ footerRightStyle }}">
         <span style="font-size:14px; font-weight:600; color:#6a6a62;">Reservá. Llegá. Seguí.</span>
         <span style="font-size:14px; font-weight:500; color:#4a4a44;">© 2026 Washify</span>
       </div>
@@ -200,14 +210,18 @@
   </footer>
 
 </div>
+
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{}">
+<script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { sent: false, sending: false, error: false };
+  state = { sent: false, sending: false, error: false, isMobile: false, menuOpen: false };
 
   bubbleRef = React.createRef();
 
   renderVals() {
+    const m = this.state.isMobile;
+    const menuOpen = this.state.menuOpen;
+
     return {
       bubbleCanvas: this.bubbleRef,
       formSent: this.state.sent,
@@ -215,6 +229,154 @@ class Component extends DCLogic {
       formError: this.state.error,
       sending: this.state.sending,
       submitLabel: this.state.sending ? "Enviando..." : "Quiero usar Washify",
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      closeMenu: () => this.setState({ menuOpen: false }),
+
+      headerStyle: {
+        position: "fixed", top: 0, left: 0, right: 0, zIndex: 50,
+        display: "flex", alignItems: "center", justifyContent: "space-between",
+        padding: m ? "16px 20px" : "20px 48px",
+        background: "rgba(13,13,13,0.82)",
+        backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)",
+        flexWrap: "wrap",
+      },
+      logoStyle: { height: m ? "26px" : "34px", display: "block" },
+      navStyle: {
+        display: m ? "none" : "flex", alignItems: "center", gap: 36,
+      },
+      menuButtonStyle: {
+        display: m ? "flex" : "none", flexDirection: "column", justifyContent: "center", gap: 5,
+        width: 40, height: 40, background: "transparent", border: "none", cursor: "pointer", padding: 0,
+      },
+      burgerLine1Style: { width: 24, height: 2, background: "#F5EDE2", borderRadius: 2, transition: "transform 0.2s", transform: menuOpen ? "translateY(7px) rotate(45deg)" : "none" },
+      burgerLine2Style: { width: 24, height: 2, background: "#F5EDE2", borderRadius: 2, opacity: menuOpen ? 0 : 1, transition: "opacity 0.2s" },
+      burgerLine3Style: { width: 24, height: 2, background: "#F5EDE2", borderRadius: 2, transition: "transform 0.2s", transform: menuOpen ? "translateY(-7px) rotate(-45deg)" : "none" },
+      mobileMenuStyle: {
+        display: (m && menuOpen) ? "flex" : "none", flexDirection: "column", gap: 20,
+        position: "absolute", top: "100%", left: 0, right: 0,
+        background: "#0D0D0D", padding: "28px 24px 32px", borderTop: "1px solid #2a2a26",
+      },
+
+      heroIconStyle: {
+        position: "absolute", right: m ? "-220px" : "-140px", top: "50%",
+        marginTop: m ? "-140px" : "-330px", width: m ? "300px" : "660px",
+        opacity: m ? 0.35 : 0.92, pointerEvents: "none", animation: "wf-float 7s ease-in-out infinite",
+      },
+      heroWrapStyle: {
+        position: "relative", zIndex: 2, maxWidth: 1200, margin: "0 auto",
+        padding: m ? "120px 24px 72px" : "160px 48px 120px", width: "100%",
+      },
+      eyebrowStyle: {
+        fontSize: m ? 13 : 15, fontWeight: 800, letterSpacing: "0.22em", textTransform: "uppercase",
+        color: "#7DA5ED", marginBottom: m ? 20 : 28,
+      },
+      heroTitleStyle: {
+        fontSize: m ? "clamp(48px, 16vw, 72px)" : "clamp(64px, 9vw, 132px)",
+        lineHeight: 0.92, fontWeight: 900, letterSpacing: "-0.04em", color: "#F5EDE2", margin: 0, textWrap: "balance",
+      },
+      heroSubStyle: {
+        fontSize: m ? 17 : "clamp(19px, 2vw, 24px)", lineHeight: 1.45, fontWeight: 500,
+        color: "#b9b3a8", maxWidth: 480, margin: m ? "24px 0 0" : "36px 0 0",
+      },
+      heroCtaRowStyle: { display: "flex", flexWrap: "wrap", gap: 16, marginTop: m ? 32 : 48 },
+      ctaPrimaryStyle: {
+        display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 12,
+        background: "#7DA5ED", color: "#0D0D0D", fontFamily: "inherit",
+        fontSize: m ? 16 : 17, fontWeight: 800, padding: m ? "16px 28px" : "18px 36px",
+        borderRadius: 999, textDecoration: "none", transition: "transform 0.2s",
+        width: m ? "100%" : "auto",
+      },
+      ctaSecondaryStyle: {
+        display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 12,
+        background: "transparent", color: "#F5EDE2", fontSize: m ? 16 : 17, fontWeight: 700,
+        padding: m ? "16px 28px" : "18px 36px", borderRadius: 999, border: "2px solid #3a3a36",
+        textDecoration: "none", transition: "border-color 0.2s", width: m ? "100%" : "auto",
+      },
+      heroStepsRowStyle: {
+        display: "flex", alignItems: "center", gap: m ? 14 : 24, marginTop: m ? 56 : 88,
+        animation: "wf-fade-up 0.9s 0.25s ease-out both", flexWrap: "wrap",
+      },
+
+      sectionPadStyle: { background: "#F5EDE2", padding: m ? "80px 24px" : "140px 48px" },
+      contactSectionStyle: { background: "#0D0D0D", padding: m ? "80px 24px" : "150px 48px" },
+      queEsGridStyle: {
+        display: "grid", gridTemplateColumns: m ? "1fr" : "1fr 1fr", gap: m ? 32 : 80, alignItems: "center",
+      },
+      eyebrowLightStyle: {
+        fontSize: 14, fontWeight: 800, letterSpacing: "0.2em", textTransform: "uppercase",
+        color: "#7DA5ED", marginBottom: m ? 16 : 24,
+      },
+      h2Style: {
+        fontSize: m ? "clamp(32px, 8vw, 44px)" : "clamp(40px, 4.5vw, 64px)",
+        lineHeight: 1.05, fontWeight: 900, letterSpacing: "-0.03em", margin: 0, textWrap: "balance",
+      },
+      bodyTextStyle: { fontSize: m ? 17 : 20, lineHeight: 1.6, fontWeight: 500, color: "#4a4a44", margin: 0 },
+
+      clientesSectionStyle: { background: "#F5EDE2", padding: m ? "0 24px 90px" : "0 48px 150px" },
+      h2WithMarginStyle: {
+        fontSize: m ? "clamp(30px, 8vw, 40px)" : "clamp(38px, 4vw, 58px)", lineHeight: 1.05, fontWeight: 900,
+        letterSpacing: "-0.03em", margin: m ? "0 0 40px" : "0 0 72px", maxWidth: 640, textWrap: "balance",
+      },
+      stepsGridStyle: { display: "grid", gridTemplateColumns: m ? "1fr" : "repeat(3, 1fr)", gap: m ? 20 : 28 },
+      stepCardStyle: {
+        background: "#fff", borderRadius: 28, padding: m ? "36px 28px 40px" : "44px 40px 48px",
+        transition: "transform 0.25s ease, box-shadow 0.25s ease",
+      },
+      ctaRowWrapStyle: {
+        display: "flex", alignItems: m ? "flex-start" : "center", flexDirection: m ? "column" : "row",
+        gap: m ? 16 : 24, marginTop: m ? 44 : 64, flexWrap: "wrap",
+      },
+
+      lavaderosSectionStyle: {
+        position: "relative", background: "#7DA5ED", padding: m ? "80px 24px" : "150px 48px", overflow: "hidden",
+      },
+      lavaderosH2Style: {
+        fontSize: m ? "clamp(32px, 8vw, 44px)" : "clamp(40px, 4.5vw, 64px)", lineHeight: 1.05, fontWeight: 900,
+        letterSpacing: "-0.03em", color: "#F5EDE2", margin: 0, maxWidth: 720, textWrap: "balance",
+      },
+      lavaderosBodyStyle: {
+        fontSize: m ? 17 : 20, lineHeight: 1.55, fontWeight: 500, color: "#12245c", maxWidth: 600,
+        margin: m ? "20px 0 0" : "32px 0 0",
+      },
+      perksGridStyle: { display: "grid", gridTemplateColumns: m ? "1fr" : "repeat(3, 1fr)", gap: m ? 20 : 28, marginTop: m ? 44 : 72 },
+
+      contactGridStyle: {
+        maxWidth: 1200, margin: "0 auto", display: "grid",
+        gridTemplateColumns: m ? "1fr" : "1fr 1.1fr", gap: m ? 48 : 88, alignItems: "start",
+      },
+      contactH2Style: {
+        fontSize: m ? "clamp(30px, 8vw, 40px)" : "clamp(38px, 4vw, 56px)", lineHeight: 1.05, fontWeight: 900,
+        letterSpacing: "-0.03em", color: "#F5EDE2", margin: 0, textWrap: "balance",
+      },
+      contactBodyStyle: { fontSize: m ? 17 : 19, lineHeight: 1.6, fontWeight: 500, color: "#b9b3a8", margin: "28px 0 0" },
+      formCardStyle: {
+        background: "#161613", border: "1px solid #2a2a26", borderRadius: 28,
+        padding: m ? "32px 24px" : "48px",
+        display: "flex", flexDirection: "column", gap: 36,
+      },
+      successCardStyle: {
+        background: "#161613", border: "1px solid #2a2a26", borderRadius: 28,
+        padding: m ? "48px 28px" : "64px 48px",
+        textAlign: "center",
+      },
+      formRowStyle: { display: "grid", gridTemplateColumns: m ? "1fr" : "1fr 1fr", gap: m ? 20 : 22 },
+
+      footerRowStyle: {
+        maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center",
+        justifyContent: "space-between", flexWrap: "wrap", gap: 20,
+      },
+      footerRightStyle: { display: "flex", alignItems: "center", gap: m ? 16 : 28, flexWrap: "wrap" },
+
+      steps: [
+        { num: "01", title: "Reservá", desc: "Elegí el lavadero más cerca, el servicio y el horario que te quede cómodo." },
+        { num: "02", title: "Llegá", desc: "Tu turno ya está listo. Dejás el auto y seguís con tu día, sin filas." },
+        { num: "03", title: "Seguí en vivo", desc: "Mirá el estado de tu lavado desde el celular y pasá a buscarlo justo a tiempo." },
+      ],
+      perks: [
+        { title: "Turnos sin caos", desc: "Agenda digital con todos tus turnos ordenados: los de la app y los de siempre." },
+        { title: "Más autos por día", desc: "Los clientes de Washify te encuentran y reservan solos, incluso fuera de horario." },
+        { title: "Todo bajo control", desc: "Estado de cada lavado, historial y clientes en un solo lugar. Desde cualquier dispositivo." },
+      ],
       submitForm: (e) => {
         e.preventDefault();
         if (this.state.sending) return;
@@ -229,20 +391,17 @@ class Component extends DCLogic {
           .then(() => this.setState({ sent: true, sending: false }))
           .catch(() => this.setState({ sending: false, error: true }));
       },
-      steps: [
-        { num: "01", title: "Reservá", desc: "Elegí el lavadero más cerca, el servicio y el horario que te quede cómodo." },
-        { num: "02", title: "Llegá", desc: "Tu turno ya está listo. Dejás el auto y seguís con tu día, sin filas." },
-        { num: "03", title: "Seguí en vivo", desc: "Mirá el estado de tu lavado desde el celular y pasá a buscarlo justo a tiempo." },
-      ],
-      perks: [
-        { title: "Turnos sin caos", desc: "Agenda digital con todos tus turnos ordenados: los de la app y los de siempre." },
-        { title: "Más autos por día", desc: "Los clientes de Washify te encuentran y reservan solos, incluso fuera de horario." },
-        { title: "Todo bajo control", desc: "Estado de cada lavado, historial y clientes en un solo lugar. Desde cualquier dispositivo." },
-      ],
     };
   }
 
   componentDidMount() {
+    const mq = window.matchMedia("(max-width: 860px)");
+    const applyMq = () => this.setState({ isMobile: mq.matches, menuOpen: mq.matches ? this.state.menuOpen : false });
+    applyMq();
+    if (mq.addEventListener) mq.addEventListener("change", applyMq);
+    else mq.addListener(applyMq);
+    this._mq = mq; this._applyMq = applyMq;
+
     const canvas = this.bubbleRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -299,8 +458,13 @@ class Component extends DCLogic {
 
   componentWillUnmount() {
     if (this._cleanup) this._cleanup();
+    if (this._mq) {
+      if (this._mq.removeEventListener) this._mq.removeEventListener("change", this._applyMq);
+      else this._mq.removeListener(this._applyMq);
+    }
   }
 }
+
 </script>
 </body>
 </html>
