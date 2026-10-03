@@ -1,0 +1,18 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "washify-web",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    // Solo se publica public/. README, docs/, flyers/ y los secrets locales quedan afuera.
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]
+  },
+  "vars": {
+    "CONTACT_TO": "washify.oficial@gmail.com",
+    "CONTACT_FROM": "Washify Web <web@washify.com.ar>"
+  },
+  // RESEND_API_KEY es un secret: `npx wrangler secret put RESEND_API_KEY` (local: .dev.vars)
+  "observability": { "enabled": true }
+}

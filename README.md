@@ -1,31 +1,47 @@
 # Washify — One Pager
 
-Landing page one-pager de Washify. Sitio estático, generado originalmente con Google Stitch (formato `.dc.html`), pensado para desplegarse directo en Netlify.
+Landing page one-pager de Washify (`washify.com.ar`). Sitio estático, generado originalmente con Google Stitch (formato `.dc.html`), publicado en **Cloudflare Workers** (Worker `washify-web`, con static assets).
 
 ## Estructura
 
 ```
-index.html          → página principal (deploy)
-Washify Onepager.dc.html → fuente original de Stitch (referencia/edición)
-support.js          → runtime de Stitch (carga React vía CDN en el navegador)
-assets/             → logos e íconos de marca
-flyers/             → piezas gráficas auxiliares (no forman parte del sitio público)
+public/                  → lo único que se publica
+  index.html             → página principal
+  support.js             → runtime de Stitch (carga React vía CDN en el navegador)
+  assets/                → logos, íconos de marca e imágenes OG
+src/worker.js            → endpoint del formulario (/api/contacto) + fallback a public/
+wrangler.jsonc           → configuración del Worker
+Washify Onepager.dc.html → fuente original de Stitch (referencia, no se publica)
+flyers/                  → piezas gráficas auxiliares (no se publican)
+docs/                    → specs y documentación (no se publican)
 ```
 
 ## Formulario de contacto
 
-El formulario de la sección "Contacto" usa **Netlify Forms**:
+- El form de "Contacto" hace `POST /api/contacto` (urlencoded).
+- `src/worker.js` valida los campos, descarta envíos con el honeypot `bot-field` completo y manda el mail con **Resend**.
+- Destinatario y remitente se configuran en `wrangler.jsonc` (`CONTACT_TO`, `CONTACT_FROM`). `CONTACT_TO` acepta varios mails separados por coma.
+- La API key de Resend es un secret del Worker (`RESEND_API_KEY`), nunca va al repo.
+- Los errores de envío se ven en Cloudflare: Worker `washify-web` → Observability → Logs.
 
-- El `<form>` tiene `data-netlify="true"` y un campo honeypot (`bot-field`) anti-spam.
-- Al enviarse, hace un `fetch` POST a `/` con los datos — Netlify lo captura automáticamente, sin backend propio.
-- Las notificaciones por email se configuran en Netlify: **Site configuration → Forms → Form notifications**, destino `washify.oficial@gmail.com`.
+Detalle completo en [docs/spec-migracion-cloudflare.md](docs/spec-migracion-cloudflare.md).
+
+## Desarrollo local
+
+```bash
+npm install
+cp .dev.vars.example .dev.vars   # completar RESEND_API_KEY
+npm run dev                      # http://localhost:8787
+```
 
 ## Deploy
 
-1. Conectar este repo en Netlify (New site from Git).
-2. Build command: ninguno. Publish directory: `/` (raíz del repo).
-3. Configurar el dominio `washify.com.ar` en **Domain settings** y cargar los registros DNS que indique Netlify en el panel de NIC.ar.
+El Worker está conectado al repo con **Workers Builds**: cada push a `main` despliega automáticamente (`npx wrangler deploy`).
+
+- Las variables (`vars`) se definen en `wrangler.jsonc`; cada deploy pisa las que se carguen a mano en el panel.
+- El secret se carga una sola vez: `npx wrangler secret put RESEND_API_KEY`.
+- Dominios: `washify.com.ar` y `www.washify.com.ar` como custom domains del Worker (Settings → Domains & Routes).
 
 ## Editar el sitio
 
-Los cambios de contenido/estilos se hacen sobre `index.html` (y se replican en `Washify Onepager.dc.html` si se vuelve a exportar desde Stitch). No requiere build ni instalación de dependencias.
+Los cambios de contenido/estilos se hacen sobre `public/index.html`. Si se vuelve a exportar desde Stitch, hay que reaplicar los cambios del formulario (sin atributos de Netlify, `fetch` a `/api/contacto`).
