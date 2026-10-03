@@ -154,7 +154,7 @@ docs/  flyers/  README.md  "Washify Onepager.dc.html"   → no se publican
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",
-    "run_worker_first": ["/api/*"]
+    "run_worker_first": true
   },
   "vars": {
     "CONTACT_TO": "washify.oficial@gmail.com",
