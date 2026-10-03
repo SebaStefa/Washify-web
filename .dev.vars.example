@@ -1,0 +1,2 @@
+# Secrets para desarrollo local con `npx wrangler dev`. Copiar a .dev.vars (ignorado por git).
+RESEND_API_KEY=

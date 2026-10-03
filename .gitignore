@@ -1,0 +1,9 @@
+# Secrets locales — nunca al repo
+.env
+.env.*
+!.env.example
+.dev.vars
+
+# Wrangler
+.wrangler/
+node_modules/

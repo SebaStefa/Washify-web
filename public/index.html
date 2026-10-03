@@ -180,8 +180,7 @@
         </div>
       </sc-if>
       <sc-if value="{{ formNotSent }}" hint-placeholder-val="{{ true }}">
-        <form name="contacto-lavaderos" data-netlify="true" netlify-honeypot="bot-field" onSubmit="{{ submitForm }}" style="{{ formCardStyle }}">
-          <input type="hidden" name="form-name" value="contacto-lavaderos">
+        <form name="contacto-lavaderos" onSubmit="{{ submitForm }}" style="{{ formCardStyle }}">
           <p style="display:none;">
             <label>No completar: <input name="bot-field" tabindex="-1" autocomplete="off"></label>
           </p>
@@ -403,12 +402,15 @@ class Component extends DCLogic {
         const form = e.target;
         const data = new FormData(form);
         this.setState({ sending: true, error: false });
-        fetch("/", {
+        fetch("/api/contacto", {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
           body: new URLSearchParams(data).toString(),
         })
-          .then(() => this.setState({ sent: true, sending: false }))
+          .then((res) => {
+            if (!res.ok) throw new Error(res.status);
+            this.setState({ sent: true, sending: false });
+          })
           .catch(() => this.setState({ sending: false, error: true }));
       },
     };
