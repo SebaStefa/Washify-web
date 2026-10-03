@@ -1,6 +1,6 @@
 # Spec funcional — Migración de Washify Web a Cloudflare Workers + Resend
 
-- **Estado:** Borrador
+- **Estado:** En implementación — código mergeado, pendiente corte de dominio
 - **Fecha:** 2026-10-03
 - **Repo:** `washifyoficial/Washify-WEB`
 - **Destino:** Worker `washify-web` (static assets) en la cuenta `Washify.oficial@gmail.com's Account`
@@ -18,14 +18,15 @@ En Cloudflare nadie recibe ese POST (verificado: `POST /` en el Worker responde 
 
 **Objetivo:** que el formulario siga funcionando en Cloudflare y mande los contactos por mail usando Resend, que ya está configurado en el proyecto.
 
-## 2. Estado actual (relevado 2026-10-03)
+## 2. Estado actual (actualizado 2026-10-03)
 
 | Elemento | Estado |
 | --- | --- |
-| Worker `washify-web` | Creado hoy por subida manual (`version_upload`), sin conexión a Git. Sirve el `index.html` actual (todavía con `data-netlify`). Sin bindings, sin dominio propio. Compatibility date `2026-10-01`. |
+| Código | Mergeado a `main` (PR #1): sitio en `public/`, `src/worker.js`, `wrangler.jsonc`. Probado en local, incluido un envío real con Resend. |
+| Worker `washify-web` | Conectado a `washifyoficial/Washify-WEB`, rama `main` (Workers Builds). Secret `RESEND_API_KEY` cargado. Sin dominio propio todavía. |
 | URL de prueba | `https://washify-web.washify-oficial.workers.dev` |
-| Zona `washify.com.ar` | Agregada en Cloudflare, estado **pending**. Los nameservers en NIC.ar siguen siendo los de Netlify DNS (`dns1..4.p03.nsone.net`). |
-| Nameservers asignados por Cloudflare | `daisy.ns.cloudflare.com`, `otto.ns.cloudflare.com` |
+| Zona `washify.com.ar` | **Active** en Cloudflare desde 2026-10-03 16:09 UTC. NIC.ar delegado a `daisy.ns.cloudflare.com` / `otto.ns.cloudflare.com`. |
+| Sitio en producción | Sigue servido por Netlify (los A de `@` y `www` apuntan a Netlify) hasta agregar los custom domains al Worker. |
 | Registros importados | A de `@` y `www` → Netlify (`13.52.188.95`, `52.52.192.191`); Resend: CNAME `send`, TXT `resend._domainkey`, TXT `_dmarc`. Coinciden con lo publicado hoy. |
 | Dominio en Resend | `washify.com.ar` (DKIM en `resend._domainkey.washify.com.ar`). |
 | Otros recursos en la cuenta | Worker `washify` y Pages `washify-dev` (transaccional / DEV). **Fuera de alcance, no se tocan.** |
