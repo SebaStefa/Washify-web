@@ -1,6 +1,6 @@
 # Spec funcional — Migración de Washify Web a Cloudflare Workers + Resend
 
-- **Estado:** En implementación — código mergeado, pendiente corte de dominio
+- **Estado:** En producción desde 2026-10-03 (~22:45 UTC). Pendientes menores en sección 2.
 - **Fecha:** 2026-10-03
 - **Repo:** `washifyoficial/Washify-WEB`
 - **Destino:** Worker `washify-web` (static assets) en la cuenta `Washify.oficial@gmail.com's Account`
@@ -22,14 +22,21 @@ En Cloudflare nadie recibe ese POST (verificado: `POST /` en el Worker responde 
 
 | Elemento | Estado |
 | --- | --- |
-| Código | Mergeado a `main` (PR #1): sitio en `public/`, `src/worker.js`, `wrangler.jsonc`. Probado en local, incluido un envío real con Resend. |
-| Worker `washify-web` | Conectado a `washifyoficial/Washify-WEB`, rama `main` (Workers Builds). Secret `RESEND_API_KEY` cargado. Sin dominio propio todavía. |
-| URL de prueba | `https://washify-web.washify-oficial.workers.dev` |
+| Sitio en producción | `https://www.washify.com.ar` (canónico), servido por el Worker `washify-web`. `washify.com.ar` redirige 301 a `www` conservando ruta y query. |
+| Código | En `main`. Cada push a `main` despliega solo (Workers Builds, check `Workers Builds: washify-web` en GitHub). |
+| Worker `washify-web` | Custom domains `www.washify.com.ar` y `washify.com.ar`. Secret `RESEND_API_KEY` cargado. `workers.dev` habilitado: `https://washify-web.washify-oficial.workers.dev`. |
+| Formulario | Probado de punta a punta: envío real recibido (local y producción), validaciones y honeypot OK. |
 | Zona `washify.com.ar` | **Active** en Cloudflare desde 2026-10-03 16:09 UTC. NIC.ar delegado a `daisy.ns.cloudflare.com` / `otto.ns.cloudflare.com`. |
-| Sitio en producción | Sigue servido por Netlify (los A de `@` y `www` apuntan a Netlify) hasta agregar los custom domains al Worker. |
-| Registros importados | A de `@` y `www` → Netlify (`13.52.188.95`, `52.52.192.191`); Resend: CNAME `send`, TXT `resend._domainkey`, TXT `_dmarc`. Coinciden con lo publicado hoy. |
-| Dominio en Resend | `washify.com.ar` (DKIM en `resend._domainkey.washify.com.ar`). |
-| Otros recursos en la cuenta | Worker `washify` y Pages `washify-dev` (transaccional / DEV). **Fuera de alcance, no se tocan.** |
+| DNS | Los A de `@` y `www` que apuntaban a Netlify (`13.52.188.95`, `52.52.192.191`) se borraron al conectar los custom domains. Resend intacto: CNAME `send`, TXT `resend._domainkey`, TXT `_dmarc`. |
+| Dominio en Resend | `washify.com.ar` (DKIM en `resend._domainkey.washify.com.ar`). API key propia de la web, solo envío. |
+| Plataforma transaccional (fuera de alcance) | Worker `washify` (app Next.js) detrás del Worker router `washify-edge`, con custom domains `clientes.`, `lavaderos.`, `admin.` y `api.washify.com.ar`. Repo `washifyoficial/Washify-DEV`. |
+
+**Pendientes**
+
+- [ ] Activar **Always Use HTTPS** en la zona (SSL/TLS → Edge Certificates). Hoy `http://www.washify.com.ar` responde 200 en vez de redirigir a `https`; antes lo forzaba Netlify.
+- [ ] Dar de baja el proyecto de Netlify (el sitio ya no recibe tráfico de ahí).
+- [ ] Borrar la rama `feat/cloudflare-worker` del repo (ya mergeada).
+- [ ] Preguntas abiertas de la sección 12.
 
 ## 3. Alcance
 
@@ -47,7 +54,7 @@ En Cloudflare nadie recibe ese POST (verificado: `POST /` en el Worker responde 
 - Cambios de contenido o diseño de la landing.
 - Migración del historial de envíos de Netlify. Si se quiere conservar, se exporta a CSV desde Netlify antes de darlo de baja.
 - Persistir los contactos en una base (D1 o backend transaccional). Mejora futura.
-- Cualquier cambio en el Worker `washify` o en el proyecto Pages `washify-dev`.
+- Cualquier cambio en la plataforma transaccional (Workers `washify` y `washify-edge`).
 
 ## 4. Requerimientos funcionales
 
@@ -82,8 +89,11 @@ Visitante ─▶ Form (public/index.html) ─POST /api/contacto─▶ Worker was
                     ▲                                              │
                     └────────────── 200 / 400 / 502 ───────────────┘
 
+washify.com.ar/*        ─▶ Worker ─▶ 301 a https://www.washify.com.ar/*
 Cualquier otro request ─▶ Worker ─▶ static assets (public/)
 ```
+
+Todas las requests pasan primero por el Worker (`run_worker_first: true`). Sin eso, Cloudflare sirve directo los archivos que existen (`/` → `index.html`) y la redirección del dominio raíz nunca se ejecuta.
 
 1. El visitante completa el form y envía.
 2. El front hace POST urlencoded a `/api/contacto`.
@@ -166,55 +176,14 @@ docs/  flyers/  README.md  "Washify Onepager.dc.html"   → no se publican
 
 Las `vars` viven en el archivo (no en el panel) porque cada deploy pisa las variables con lo que dice `wrangler.jsonc`. El secret `RESEND_API_KEY` no se pisa.
 
-### Boceto de `src/worker.js`
+### `src/worker.js`
 
-```js
-const REQUIRED = ["nombre", "lavadero", "telefono", "ciudad"];
-const MAX = { mensaje: 2000 };
-const esc = (s) => s.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
-const json = (body, status = 200) =>
-  new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json" } });
+El código vigente está en [`src/worker.js`](../src/worker.js). En resumen:
 
-async function contacto(request, env) {
-  if (request.method !== "POST") return json({ ok: false, error: "method_not_allowed" }, 405);
-
-  const form = await request.formData();
-  if (form.get("bot-field")) return json({ ok: true });
-
-  const data = {};
-  for (const k of [...REQUIRED, "mensaje"]) data[k] = String(form.get(k) ?? "").trim();
-  const invalid =
-    REQUIRED.some((k) => !data[k]) ||
-    Object.entries(data).some(([k, v]) => v.length > (MAX[k] ?? 200));
-  if (invalid) return json({ ok: false, error: "validation" }, 400);
-
-  const res = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, "Content-Type": "application/json" },
-    body: JSON.stringify({
-      from: env.CONTACT_FROM,
-      to: env.CONTACT_TO.split(","),
-      subject: `Nuevo lavadero interesado: ${data.lavadero} (${data.ciudad})`,
-      html: Object.entries(data).map(([k, v]) => `<b>${k}</b>: ${esc(v)}`).join("<br>"),
-      text: Object.entries(data).map(([k, v]) => `${k}: ${v}`).join("\n"),
-    }),
-  });
-  if (!res.ok) {
-    console.error("Resend error", res.status, await res.text());
-    return json({ ok: false, error: "send_failed" }, 502);
-  }
-  return json({ ok: true });
-}
-
-export default {
-  async fetch(request, env) {
-    const { pathname } = new URL(request.url);
-    if (pathname === "/api/contacto") return contacto(request, env);
-    if (pathname.startsWith("/api/")) return json({ ok: false, error: "not_found" }, 404);
-    return env.ASSETS.fetch(request);
-  },
-};
-```
+1. Si el host es `washify.com.ar`, responde 301 a `https://www.washify.com.ar` con la misma ruta y query.
+2. `/api/contacto`: solo POST; honeypot → validación de obligatorios y largos → mail con Resend (tabla HTML con los campos escapados, fecha en hora de Argentina y link a WhatsApp, más versión en texto).
+3. Cualquier otro `/api/*`: 404 JSON.
+4. El resto: `env.ASSETS.fetch(request)` (archivos de `public/`).
 
 ### `submitForm` en `index.html`
 
@@ -241,48 +210,52 @@ fetch("/api/contacto", {
 
 1. Cargar el secret: `npx wrangler secret put RESEND_API_KEY` (o en el panel: Worker → Settings → Variables and Secrets → tipo Secret).
 2. Conectar al repo: Worker → Settings → Builds → Connect → GitHub `washifyoficial/Washify-WEB`, branch `main`, deploy command `npx wrangler deploy`. Requiere autorizar la GitHub App de Cloudflare en `washifyoficial` (se hace desde el panel).
-3. Mantener habilitado `workers.dev` hasta el corte, para probar.
+3. **No deployar a mano** (`wrangler deploy` local o subida desde el panel) ni hacer rollback a versiones viejas: los secrets viven por versión, y una versión anterior a la carga del secret deja el form sin key (pasó el 2026-10-03, ver sección 13).
 
 **Dominio y DNS**
 
 1. Cambiar en NIC.ar los nameservers de `washify.com.ar` por `daisy.ns.cloudflare.com` y `otto.ns.cloudflare.com`. Mientras los A sigan apuntando a Netlify, el sitio sigue servido por Netlify: el cambio de NS por sí solo no corta nada.
-2. Con la zona en **active**: Worker → Settings → Domains & Routes → Custom domain → `washify.com.ar` y `www.washify.com.ar`. Cloudflare reemplaza los registros A de Netlify y emite el certificado.
+2. Con la zona en **active**: borrar los registros A de `@` y `www` (Cloudflare no deja crear el custom domain si existen) y en el mismo momento agregar `www.washify.com.ar` y `washify.com.ar` como custom domains del Worker. Cloudflare emite el certificado.
 3. Verificar que los registros de Resend (`send`, `resend._domainkey`, `_dmarc`) siguen intactos.
+4. Activar **Always Use HTTPS** en la zona.
 
 ## 10. Plan de corte
 
-1. Implementar en una rama y probar en local con `npx wrangler dev` + `.dev.vars`.
-2. Deploy a `washify-web.washify-oficial.workers.dev` y probar el form de punta a punta.
-3. Mergear a `main`; con Workers Builds conectado, el deploy sale solo. Volver a probar en `workers.dev`.
-4. Exportar a CSV los envíos guardados en Netlify (si se quieren conservar).
-5. Cambiar nameservers en NIC.ar y esperar a que la zona pase a **active** (sin impacto: los A siguen apuntando a Netlify).
-6. Agregar los custom domains al Worker (este es el corte real).
-7. Verificar HTTPS, `www`, form y llegada del mail en `washify.com.ar`.
-8. Mantener Netlify activo (sin dominio) 1–2 semanas y luego darlo de baja.
+Ejecutado el 2026-10-03:
 
-**Rollback:** quitar los custom domains del Worker y recrear los registros A de `@` y `www` apuntando a Netlify (`13.52.188.95`, `52.52.192.191`). El `main` migrado ya no tiene `data-netlify`; si hay que volver a Netlify con form funcionando, redeployar allí el último commit previo a la migración (`0038096`).
+- [x] 1. Implementar en una rama y probar en local con `npx wrangler dev` + `.dev.vars` (incluido envío real).
+- [x] 2. PR #1 mergeada a `main`.
+- [x] 3. Conectar Workers Builds; primer deploy automático con un push a `main` y prueba en `workers.dev` (incluido envío real).
+- [x] 4. Cambio de nameservers en NIC.ar; zona **active** a las 16:09 UTC.
+- [x] 5. Redirección del dominio raíz a `www` en el Worker.
+- [x] 6. Corte: borrar los A de Netlify y agregar los custom domains `www` y raíz (~22:45 UTC).
+- [x] 7. Verificación en `washify.com.ar` / `www.washify.com.ar` (ver sección 11).
+- [ ] 8. Always Use HTTPS y baja de Netlify.
+
+**Rollback** (solo mientras exista el proyecto en Netlify): quitar los custom domains del Worker y recrear los registros A de `@` y `www` apuntando a Netlify (`13.52.188.95`, `52.52.192.191`). El `main` migrado ya no tiene `data-netlify`; para volver a Netlify con form funcionando hay que redeployar allí el último commit previo a la migración (`0038096`).
 
 ## 11. Criterios de aceptación
 
 Se validan en producción (`washify.com.ar`), no solo en `workers.dev`.
 
-- [ ] La landing se ve igual que en Netlify en desktop y mobile (imágenes, favicon, meta OG).
-- [ ] Un envío completo llega a `CONTACT_TO` en menos de 1 minuto, con todos los campos y el link de WhatsApp.
-- [ ] Un envío sin `mensaje` se acepta y llega.
-- [ ] Un envío sin un campo obligatorio (forzado con curl) devuelve `400` y no manda mail.
-- [ ] Un envío con `bot-field` completo devuelve `200` y no manda mail.
-- [ ] Un `GET /api/contacto` devuelve `405`.
-- [ ] Con una `RESEND_API_KEY` inválida (en local o en una versión de preview), el form muestra error (no "enviado") y el error aparece en los logs.
-- [ ] HTML ingresado en un campo (`<b>hola</b>`) llega escapado en el mail.
-- [ ] `/README.md`, `/docs/...`, `/flyers/...`, `/wrangler.jsonc` y `/.env.local` devuelven `404`.
-- [ ] HTTPS activo en `washify.com.ar` y `www.washify.com.ar`.
-- [ ] Los mails del transaccional enviados por Resend siguen llegando después del cambio de DNS.
-- [ ] El `README.md` describe el deploy en Cloudflare y no menciona Netlify.
+- [ ] La landing se ve igual que en Netlify en desktop y mobile (imágenes, favicon, meta OG). *Assets verificados (200); falta la revisión visual.*
+- [x] Un envío completo llega a `CONTACT_TO`, con todos los campos y el link de WhatsApp.
+- [x] Un envío sin `mensaje` se acepta y llega.
+- [x] Un envío sin un campo obligatorio (forzado con curl) devuelve `400` y no manda mail.
+- [x] Un envío con `bot-field` completo devuelve `200` y no manda mail.
+- [x] Un `GET /api/contacto` devuelve `405`.
+- [x] Con una `RESEND_API_KEY` inválida, el endpoint devuelve `502` y el error aparece en los logs (verificado en local y, sin querer, en producción).
+- [x] HTML ingresado en un campo (`<b>hola</b>`) llega escapado en el mail.
+- [x] `/README.md`, `/docs/...`, `/wrangler.jsonc`, `/package.json`, `/src/...`, `/.env.local` y `/.dev.vars` devuelven `404`.
+- [x] HTTPS activo en `washify.com.ar` y `www.washify.com.ar` (Let's Encrypt vía Cloudflare). *Falta forzar `http` → `https` (Always Use HTTPS).*
+- [x] `washify.com.ar` redirige 301 a `https://www.washify.com.ar` conservando ruta y query.
+- [ ] Los mails del transaccional enviados por Resend siguen llegando después del cambio de DNS. *Registros de Resend intactos; falta confirmar con un envío del transaccional.*
+- [x] El `README.md` describe el deploy en Cloudflare y no menciona Netlify.
 
 Prueba rápida:
 
 ```bash
-curl -i -X POST https://washify-web.washify-oficial.workers.dev/api/contacto \
+curl -i -X POST https://www.washify.com.ar/api/contacto \
   -d nombre=Test -d lavadero=Prueba -d telefono=5491100000000 -d ciudad=CABA
 ```
 
@@ -292,3 +265,11 @@ curl -i -X POST https://washify-web.washify-oficial.workers.dev/api/contacto \
 - [ ] ¿Además de `washify.oficial@gmail.com`, quién más tiene que recibir los contactos?
 - [ ] `Washify Onepager.dc.html`: ¿se actualiza o se elimina?
 - [ ] ¿El remitente `web@washify.com.ar` está bien o prefieren otro (ej. `contacto@`)?
+
+## 13. Lecciones de la migración
+
+- **Los secrets viven por versión del Worker.** El 2026-10-03 se cargó `RESEND_API_KEY` y minutos después se hizo un deploy manual de una versión anterior: el Worker quedó sin key y el form devolvía `502`. Solución: volver a cargar el secret y deployar solo desde `main` (Workers Builds).
+- **Static assets se sirven antes que el Worker.** Con `run_worker_first` limitado a `/api/*`, la redirección del dominio raíz no corría porque `/` se resolvía directo a `index.html`. Se pasó a `run_worker_first: true`.
+- **Custom domains y DNS existentes.** Cloudflare no crea un custom domain si el hostname ya tiene registros A/CNAME: hay que borrarlos justo antes de agregarlo.
+- **Workers Builds solo se dispara con un push posterior a la conexión.** Mergear antes de conectar el repo no despliega nada.
+- **Redirecciones que hacía Netlify** (raíz → `www`, `http` → `https`) hay que reemplazarlas explícitamente en Cloudflare.
