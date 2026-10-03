@@ -1,6 +1,6 @@
 # Spec funcional — Migración de Washify Web a Cloudflare Workers + Resend
 
-- **Estado:** En producción desde 2026-10-03 (~22:45 UTC). Pendientes menores en sección 2.
+- **Estado:** Completada. En producción desde 2026-10-03 (~22:45 UTC); Netlify dado de baja.
 - **Fecha:** 2026-10-03
 - **Repo:** `washifyoficial/Washify-WEB`
 - **Destino:** Worker `washify-web` (static assets) en la cuenta `Washify.oficial@gmail.com's Account`
@@ -33,8 +33,8 @@ En Cloudflare nadie recibe ese POST (verificado: `POST /` en el Worker responde 
 
 **Pendientes**
 
-- [ ] Activar **Always Use HTTPS** en la zona (SSL/TLS → Edge Certificates). Hoy `http://www.washify.com.ar` responde 200 en vez de redirigir a `https`; antes lo forzaba Netlify.
-- [ ] Dar de baja el proyecto de Netlify (el sitio ya no recibe tráfico de ahí).
+- [x] Activar **Always Use HTTPS** en la zona (`http` → `https` 301, verificado).
+- [x] Dar de baja el proyecto de Netlify.
 - [ ] Borrar la rama `feat/cloudflare-worker` del repo (ya mergeada).
 - [ ] Preguntas abiertas de la sección 12.
 
@@ -230,15 +230,15 @@ Ejecutado el 2026-10-03:
 - [x] 5. Redirección del dominio raíz a `www` en el Worker.
 - [x] 6. Corte: borrar los A de Netlify y agregar los custom domains `www` y raíz (~22:45 UTC).
 - [x] 7. Verificación en `washify.com.ar` / `www.washify.com.ar` (ver sección 11).
-- [ ] 8. Always Use HTTPS y baja de Netlify.
+- [x] 8. Always Use HTTPS y baja de Netlify.
 
-**Rollback** (solo mientras exista el proyecto en Netlify): quitar los custom domains del Worker y recrear los registros A de `@` y `www` apuntando a Netlify (`13.52.188.95`, `52.52.192.191`). El `main` migrado ya no tiene `data-netlify`; para volver a Netlify con form funcionando hay que redeployar allí el último commit previo a la migración (`0038096`).
+**Rollback:** ya no aplica (Netlify dado de baja). Referencia histórica: quitar los custom domains del Worker y recrear los registros A de `@` y `www` apuntando a Netlify (`13.52.188.95`, `52.52.192.191`). El `main` migrado ya no tiene `data-netlify`; para volver a Netlify con form funcionando hay que redeployar allí el último commit previo a la migración (`0038096`).
 
 ## 11. Criterios de aceptación
 
 Se validan en producción (`washify.com.ar`), no solo en `workers.dev`.
 
-- [ ] La landing se ve igual que en Netlify en desktop y mobile (imágenes, favicon, meta OG). *Assets verificados (200); falta la revisión visual.*
+- [x] La landing se ve igual que en Netlify en desktop y mobile (imágenes, favicon, meta OG). Revisión manual OK.
 - [x] Un envío completo llega a `CONTACT_TO`, con todos los campos y el link de WhatsApp.
 - [x] Un envío sin `mensaje` se acepta y llega.
 - [x] Un envío sin un campo obligatorio (forzado con curl) devuelve `400` y no manda mail.
@@ -247,9 +247,9 @@ Se validan en producción (`washify.com.ar`), no solo en `workers.dev`.
 - [x] Con una `RESEND_API_KEY` inválida, el endpoint devuelve `502` y el error aparece en los logs (verificado en local y, sin querer, en producción).
 - [x] HTML ingresado en un campo (`<b>hola</b>`) llega escapado en el mail.
 - [x] `/README.md`, `/docs/...`, `/wrangler.jsonc`, `/package.json`, `/src/...`, `/.env.local` y `/.dev.vars` devuelven `404`.
-- [x] HTTPS activo en `washify.com.ar` y `www.washify.com.ar` (Let's Encrypt vía Cloudflare). *Falta forzar `http` → `https` (Always Use HTTPS).*
+- [x] HTTPS activo en `washify.com.ar` y `www.washify.com.ar` (Let's Encrypt vía Cloudflare) y `http` redirige 301 a `https`.
 - [x] `washify.com.ar` redirige 301 a `https://www.washify.com.ar` conservando ruta y query.
-- [ ] Los mails del transaccional enviados por Resend siguen llegando después del cambio de DNS. *Registros de Resend intactos; falta confirmar con un envío del transaccional.*
+- [x] Los mails del transaccional enviados por Resend siguen llegando después del cambio de DNS.
 - [x] El `README.md` describe el deploy en Cloudflare y no menciona Netlify.
 
 Prueba rápida:
