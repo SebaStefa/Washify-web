@@ -103,9 +103,20 @@ async function handleContacto(request, env) {
   return json({ ok: true });
 }
 
+// El sitio canónico es www. El dominio raíz redirige (antes lo hacía Netlify).
+const CANONICAL_HOST = "www.washify.com.ar";
+const APEX_HOST = "washify.com.ar";
+
 export default {
   async fetch(request, env) {
-    const { pathname } = new URL(request.url);
+    const url = new URL(request.url);
+    if (url.hostname === APEX_HOST) {
+      url.hostname = CANONICAL_HOST;
+      url.protocol = "https:";
+      return Response.redirect(url.toString(), 301);
+    }
+
+    const { pathname } = url;
     if (pathname === "/api/contacto") return handleContacto(request, env);
     if (pathname.startsWith("/api/")) return json({ ok: false, error: "not_found" }, 404);
     return env.ASSETS.fetch(request);
