@@ -762,10 +762,14 @@
               <input required name="telefono" type="tel" placeholder="+54 9 ..." style="font-family:inherit; font-size:16px; font-weight:500; color:#F5EDE2; background:#0D0D0D; border:1px solid #2a2a26; border-radius:14px; padding:15px 18px; outline:none;" style-focus="border-color:#7DA5ED;">
             </label>
             <label style="display:flex; flex-direction:column; gap:8px;">
-              <span style="font-size:14px; font-weight:700; color:#b9b3a8;">Ciudad o barrio</span>
-              <input required name="ciudad" type="text" placeholder="Ej: Palermo, CABA" style="font-family:inherit; font-size:16px; font-weight:500; color:#F5EDE2; background:#0D0D0D; border:1px solid #2a2a26; border-radius:14px; padding:15px 18px; outline:none;" style-focus="border-color:#7DA5ED;">
+              <span style="font-size:14px; font-weight:700; color:#b9b3a8;">Mail <span style="font-weight:500; color:#8a8a82;">(opcional)</span></span>
+              <input name="email" type="email" autocomplete="email" placeholder="nombre@ejemplo.com" style="font-family:inherit; font-size:16px; font-weight:500; color:#F5EDE2; background:#0D0D0D; border:1px solid #2a2a26; border-radius:14px; padding:15px 18px; outline:none;" style-focus="border-color:#7DA5ED;">
             </label>
           </div>
+          <label style="display:flex; flex-direction:column; gap:8px;">
+            <span style="font-size:14px; font-weight:700; color:#b9b3a8;">Ciudad o barrio</span>
+            <input required name="ciudad" type="text" placeholder="Ej: Palermo, CABA" style="font-family:inherit; font-size:16px; font-weight:500; color:#F5EDE2; background:#0D0D0D; border:1px solid #2a2a26; border-radius:14px; padding:15px 18px; outline:none;" style-focus="border-color:#7DA5ED;">
+          </label>
           <label style="display:flex; flex-direction:column; gap:8px;">
             <span style="font-size:14px; font-weight:700; color:#b9b3a8;">Tu consulta <span style="font-weight:500; color:#8a8a82;">(opcional)</span></span>
             <textarea name="mensaje" rows="4" placeholder="Contanos qué querés saber antes de arrancar..." style="font-family:inherit; font-size:16px; font-weight:500; color:#F5EDE2; background:#0D0D0D; border:1px solid #2a2a26; border-radius:14px; padding:15px 18px; outline:none; resize:vertical;" style-focus="border-color:#7DA5ED;"></textarea>
