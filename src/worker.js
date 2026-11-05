@@ -5,12 +5,14 @@ const FIELDS = {
   nombre: "Nombre",
   lavadero: "Lavadero",
   telefono: "Teléfono / WhatsApp",
+  email: "Mail",
   ciudad: "Ciudad / Zona",
   mensaje: "Mensaje",
 };
 const REQUIRED = ["nombre", "lavadero", "telefono", "ciudad"];
 const MAX_LENGTH = { mensaje: 2000 };
 const DEFAULT_MAX_LENGTH = 200;
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const json = (body, status = 200) =>
   new Response(JSON.stringify(body), {
@@ -72,8 +74,10 @@ async function handleContacto(request, env) {
   const data = {};
   for (const key of Object.keys(FIELDS)) data[key] = String(form.get(key) ?? "").trim();
 
+  // El mail es opcional, pero si viene tiene que tener formato válido.
   const invalid =
     REQUIRED.some((key) => !data[key]) ||
+    (data.email && !EMAIL_RE.test(data.email)) ||
     Object.entries(data).some(([key, value]) => value.length > (MAX_LENGTH[key] ?? DEFAULT_MAX_LENGTH));
   if (invalid) return json({ ok: false, error: "validation" }, 400);
 
@@ -88,6 +92,8 @@ async function handleContacto(request, env) {
       body: JSON.stringify({
         from: env.CONTACT_FROM,
         to: env.CONTACT_TO.split(",").map((s) => s.trim()).filter(Boolean),
+        // Si dejó su mail, "Responder" en el correo le contesta directo al lavadero.
+        ...(data.email ? { reply_to: data.email } : {}),
         ...email,
       }),
     });
