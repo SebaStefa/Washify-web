@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="es-AR">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -37,6 +37,10 @@
     * { box-sizing: border-box; }
     @keyframes wf-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-18px); } }
     @keyframes wf-fade-up { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
   </style>
 </helmet>
 
@@ -48,21 +52,23 @@
       <img src="assets/Washify_Logo-Light.png" alt="Washify" style="{{ logoStyle }}">
     </a>
     <nav style="{{ navStyle }}">
-      <a href="#clientes" style="font-size:15px; font-weight:600; color:#F5EDE2; text-decoration:none;" style-hover="color:#7DA5ED;">Para vos</a>
-      <a href="#lavaderos" style="font-size:15px; font-weight:600; color:#F5EDE2; text-decoration:none;" style-hover="color:#7DA5ED;">Para lavaderos</a>
-      <a href="/muy-pronto" style="font-size:15px; font-weight:600; color:#F5EDE2; text-decoration:none;" style-hover="color:#7DA5ED;">Portal lavaderos</a>
-      <a href="/muy-pronto" style="font-size:15px; font-weight:700; color:#0D0D0D; background:#7DA5ED; padding:10px 22px; border-radius:999px; text-decoration:none;" style-hover="background:#F5EDE2;">Sumá tu lavadero</a>
+      <a href="#clientes" style="font-size:15px; font-weight:600; color:#F5EDE2; text-decoration:none; padding:12px 0;" style-hover="color:#7DA5ED;">Para vos</a>
+      <a href="#lavaderos" style="font-size:15px; font-weight:600; color:#F5EDE2; text-decoration:none; padding:12px 0;" style-hover="color:#7DA5ED;">Para lavaderos</a>
+      <span style="display:flex; align-items:center; gap:12px;">
+        <a href="/muy-pronto" style="font-size:15px; font-weight:700; color:#0D0D0D; background:#F5EDE2; padding:13px 22px; border-radius:999px; text-decoration:none;" style-hover="background:#fff;">Reservá tu lavado</a>
+        <a href="/muy-pronto" style="font-size:15px; font-weight:700; color:#0D0D0D; background:#7DA5ED; padding:13px 22px; border-radius:999px; text-decoration:none;" style-hover="background:#9DBBF2;">Portal lavaderos</a>
+      </span>
     </nav>
-    <button aria-label="Menú" onClick="{{ toggleMenu }}" style="{{ menuButtonStyle }}">
+    <button type="button" aria-label="{{ menuButtonLabel }}" aria-expanded="{{ menuExpanded }}" aria-controls="menu-mobile" onClick="{{ toggleMenu }}" style="{{ menuButtonStyle }}">
       <span style="{{ burgerLine1Style }}"></span>
       <span style="{{ burgerLine2Style }}"></span>
       <span style="{{ burgerLine3Style }}"></span>
     </button>
-    <div style="{{ mobileMenuStyle }}">
-      <a href="#clientes" onClick="{{ closeMenu }}" style="font-size:20px; font-weight:700; color:#F5EDE2; text-decoration:none;">Para vos</a>
-      <a href="#lavaderos" onClick="{{ closeMenu }}" style="font-size:20px; font-weight:700; color:#F5EDE2; text-decoration:none;">Para lavaderos</a>
-      <a href="/muy-pronto" style="font-size:20px; font-weight:700; color:#F5EDE2; text-decoration:none;">Portal lavaderos</a>
-      <a href="/muy-pronto" onClick="{{ closeMenu }}" style="font-size:17px; font-weight:800; color:#0D0D0D; background:#7DA5ED; padding:16px 28px; border-radius:999px; text-decoration:none; text-align:center;">Sumá tu lavadero</a>
+    <div id="menu-mobile" style="{{ mobileMenuStyle }}">
+      <a href="#clientes" onClick="{{ closeMenu }}" style="font-size:22px; font-weight:700; color:#F5EDE2; text-decoration:none; padding:12px 0;">Para vos</a>
+      <a href="#lavaderos" onClick="{{ closeMenu }}" style="font-size:22px; font-weight:700; color:#F5EDE2; text-decoration:none; padding:12px 0;">Para lavaderos</a>
+      <a href="/muy-pronto" onClick="{{ closeMenu }}" style="font-size:17px; font-weight:800; color:#0D0D0D; background:#F5EDE2; padding:16px 28px; border-radius:999px; text-decoration:none; text-align:center; margin-top:16px;">Reservá tu lavado</a>
+      <a href="/muy-pronto" onClick="{{ closeMenu }}" style="font-size:17px; font-weight:800; color:#0D0D0D; background:#7DA5ED; padding:16px 28px; border-radius:999px; text-decoration:none; text-align:center; margin-top:8px;">Portal lavaderos</a>
     </div>
   </header>
 
@@ -76,7 +82,7 @@
           <div style="position:absolute; inset:0; background-image:url(assets/map-caballito-2.png); background-size:cover; background-position:center top;"></div>
 <div style="position:absolute; top:58px; left:14px; right:14px; display:flex; gap:8px; z-index:2;">
   <span style="display:flex; align-items:center; gap:6px; background:#fff; border-radius:999px; padding:9px 14px; font-size:13px; font-weight:700; color:#232323; box-shadow:0 2px 8px rgba(0,0,0,0.12);"><span style="width:12px; height:12px; border-radius:999px; border:1.8px solid #232323;"></span>Abierto ahora</span>
-  <span style="display:flex; align-items:center; gap:6px; background:#fff; border-radius:999px; padding:9px 14px; font-size:13px; font-weight:700; color:#232323; box-shadow:0 2px 8px rgba(0,0,0,0.12);"><span style="width:12px; height:12px; border-radius:999px; border:1.8px dashed #232323;"></span>Disponible en 1h</span>
+  <span style="display:flex; align-items:center; gap:6px; background:#fff; border-radius:999px; padding:9px 14px; font-size:13px; font-weight:700; color:#232323; box-shadow:0 2px 8px rgba(0,0,0,0.12);"><span style="width:12px; height:12px; border-radius:999px; border:1.8px dashed #232323;"></span>Turno en 1 hora</span>
 </div>
 <sc-for list="{{ heroPins }}" as="p" hint-placeholder-count="10"><div style="{{ p.style }}"><img src="assets/Washify_Icono-Light.png" alt="" style="width:15px; height:15px; transform:rotate(45deg);"></div></sc-for>
 <div style="position:absolute; left:262px; top:112px; display:flex; flex-direction:column; align-items:center; gap:4px;"><span style="width:16px; height:16px; border-radius:999px; background:#3F6FE0; border:3px solid #fff; box-shadow:0 0 0 10px rgba(63,111,224,0.2);"></span></div>
@@ -101,9 +107,9 @@
 
           <div style="position:absolute; top:0; left:0; right:0; height:48px; display:flex; align-items:center; justify-content:space-between; padding:0 30px; font-size:14px; font-weight:800; color:#232323; z-index:5;"><span>9:41</span><span style="position:absolute; left:50%; top:10px; width:108px; height:30px; margin-left:-54px; border-radius:999px; background:#0D0D0D;"></span><span style="width:22px; height:11px; border-radius:3px; border:1.5px solid #232323;"></span></div>
           <div style="position:absolute; left:0; right:0; bottom:0; height:76px; background:#fff; border-top:1px solid #EEE7DC; display:flex; justify-content:space-around; align-items:flex-start; padding-top:12px; z-index:4;">
-  <div style="display:flex; flex-direction:column; align-items:center; gap:4px; color:#7B8FD6;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"></path><path d="M9 4v14M15 6v14"></path></svg><span style="font-size:10px; font-weight:800; letter-spacing:0.06em;">MAPA</span></div>
-  <div style="display:flex; flex-direction:column; align-items:center; gap:4px; color:#55554f;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="5" width="16" height="15" rx="2"></rect><path d="M4 10h16M9 3v4M15 3v4"></path></svg><span style="font-size:10px; font-weight:800; letter-spacing:0.06em;">RESERVAS</span></div>
-  <div style="display:flex; flex-direction:column; align-items:center; gap:4px; color:#55554f;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="10" r="3"></circle><path d="M6.5 18.5c1.5-2 3.4-3 5.5-3s4 1 5.5 3"></path></svg><span style="font-size:10px; font-weight:800; letter-spacing:0.06em;">PERFIL</span></div>
+  <div style="display:flex; flex-direction:column; align-items:center; gap:4px; color:#7B8FD6;"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"></path><path d="M9 4v14M15 6v14"></path></svg><span style="font-size:10px; font-weight:800; letter-spacing:0.02em;">Mapa</span></div>
+  <div style="display:flex; flex-direction:column; align-items:center; gap:4px; color:#55554f;"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="5" width="16" height="15" rx="2"></rect><path d="M4 10h16M9 3v4M15 3v4"></path></svg><span style="font-size:10px; font-weight:800; letter-spacing:0.02em;">Reservas</span></div>
+  <div style="display:flex; flex-direction:column; align-items:center; gap:4px; color:#55554f;"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="10" r="3"></circle><path d="M6.5 18.5c1.5-2 3.4-3 5.5-3s4 1 5.5 3"></path></svg><span style="font-size:10px; font-weight:800; letter-spacing:0.02em;">Perfil</span></div>
 </div>
           <span style="position:absolute; left:50%; bottom:8px; width:120px; height:5px; margin-left:-60px; border-radius:999px; background:#0D0D0D; z-index:5;"></span>
         </div>
@@ -113,7 +119,7 @@
       <div style="animation:wf-fade-up 0.9s ease-out both;">
         <div style="{{ eyebrowStyle }}">Lavá tu auto sin esperar</div>
         <h1 style="{{ heroTitleStyle }}">La fila<br>ya fue.</h1>
-        <p style="{{ heroSubStyle }}">Washify conecta tu auto con el lavadero más cerca tuyo. Reservá en segundos, llegá sin filas y seguí tu lavado en vivo.</p>
+        <p style="{{ heroSubStyle }}">Encontrá el lavadero más cerca, reservá en segundos y seguí tu lavado en vivo.</p>
         <div style="{{ heroCtaRowStyle }}">
           <a href="#clientes" style="{{ ctaPrimaryStyle }}" style-hover="transform:translateY(-3px);">Descargá la app</a>
           <a href="#lavaderos" style="{{ ctaSecondaryStyle }}" style-hover="border-color:#7DA5ED;">Tengo un lavadero</a>
@@ -129,30 +135,44 @@
     </div>
   </section>
 
-  <!-- ============ QUÉ ES ============ -->
-  <section ref="{{ queEsRef }}" data-screen-label="Qué es Washify" style="{{ sectionPadStyle }}">
-    <div style="max-width:1200px; margin:0 auto;">
-      <div style="{{ cQueEsStyle }}">
-        <div style="{{ cQueEsInner }}">
-          <div style="font-size:14px; font-weight:800; letter-spacing:0.2em; text-transform:uppercase; color:#7DA5ED; margin-bottom:14px;">Qué es Washify</div>
-          <h2 style="{{ cH2Style }}">Tu tiempo vale.</h2>
-          <p style="{{ queEsBodyStyle }}">Washify es la plataforma que une a los que quieren el auto impecable con los lavaderos que lo hacen posible. Vos reservás y seguís todo desde la app; el lavadero gestiona sus turnos sin caos. Todos ganan tiempo.</p>
+  <!-- ============ QUÉ ES WASHIFY ============ -->
+  <section id="que-es" data-screen-label="Qué es Washify" style="{{ queEsSectionStyle }}">
+    <div style="{{ queEsInnerStyle }}">
+      <div style="{{ queEsHeadStyle }}">
+        <div>
+          <div style="{{ eyebrowOnLightStyle }}">Qué es Washify</div>
+          <h2 style="{{ cH2Style }}">Vos reservás. El lavadero se organiza.</h2>
         </div>
+        <p style="{{ queEsBodyStyle }}">Washify conecta a quienes quieren lavar su auto con los lavaderos de su zona. Reservás y pagás tu turno desde el celular; el lavadero recibe la reserva en su agenda y te avisa cuando el auto está listo.</p>
+      </div>
+      <div style="{{ queEsCardsStyle }}">
+        <a href="#clientes" style="{{ queEsCardStyle }}" style-hover="transform:translateY(-3px);">
+          <span style="font-size:13px; font-weight:800; letter-spacing:0.16em; text-transform:uppercase; color:#3F5FBF;">Para vos</span>
+          <span style="{{ queEsCardTitleStyle }}">Lavá tu auto sin hacer fila.</span>
+          <span style="{{ queEsCardTextStyle }}">Encontrá lavaderos cerca, elegí servicio y horario, pagá desde la app y seguí tu lavado en vivo.</span>
+          <span style="font-size:16px; font-weight:800; color:#3F5FBF; margin-top:auto; padding-top:8px;">Ver cómo funciona →</span>
+        </a>
+        <a href="#lavaderos" style="{{ queEsCardBlueStyle }}" style-hover="transform:translateY(-3px);">
+          <span style="font-size:13px; font-weight:800; letter-spacing:0.16em; text-transform:uppercase; color:#0D0D0D;">Para lavaderos</span>
+          <span style="{{ queEsCardTitleStyle }}">Ordená tu lavadero y sumá clientes.</span>
+          <span style="{{ queEsCardTextBlueStyle }}">Agenda, turnos, ventas y reportes en un solo sistema. Y clientes nuevos que reservan desde Washify. Gratis 3 meses.</span>
+          <span style="font-size:16px; font-weight:800; color:#0D0D0D; margin-top:auto; padding-top:8px;">Ver el portal →</span>
+        </a>
       </div>
     </div>
   </section>
 
   <!-- ============ CLIENTES ============ -->
-  <section id="clientes" data-screen-label="Para clientes" style="{{ clientesSectionStyle }}">
+  <section id="clientes" ref="{{ clientesRef }}" data-screen-label="Para clientes" style="{{ clientesSectionStyle }}">
     <div ref="{{ cGridRef }}" style="{{ clientDemoGridStyle }}">
       <div style="{{ cHeadStyle }}">
-        <div style="{{ eyebrowLightStyle }}">Para vos</div>
+        <div style="{{ eyebrowOnLightStyle }}">Para vos</div>
         <h2 style="{{ cH2Style }}">Lavá tu auto en tres pasos.</h2>
       </div>
       <div style="{{ cStepsAreaStyle }}">
-        <div style="{{ cStepsListStyle }}">
+        <div role="tablist" aria-label="Pasos para reservar" style="{{ cStepsListStyle }}">
           <sc-for list="{{ cFlow }}" as="f" hint-placeholder-count="3">
-            <button onClick="{{ f.onClick }}" style="{{ f.style }}">
+            <button type="button" role="tab" aria-selected="{{ f.selected }}" onClick="{{ f.onClick }}" style="{{ f.style }}">
               <span style="{{ f.numStyle }}">{{ f.num }}</span>
               <span style="{{ f.textColStyle }}">
                 <span style="{{ f.titleStyle }}">{{ f.title }}</span>
@@ -172,7 +192,7 @@
             <span style="font-size:19px; line-height:1.55; font-weight:500; color:#5a5a54; max-width:460px;">{{ cActiveDesc }}</span>
             <sc-if value="{{ cDetailSubs }}" hint-placeholder-val="{{ false }}">
               <span style="display:flex; flex-wrap:wrap; gap:6px;">
-                <sc-for list="{{ cActiveSubs }}" as="s" hint-placeholder-count="3"><button onClick="{{ s.onClick }}" style="{{ s.style }}">{{ s.label }}</button></sc-for>
+                <sc-for list="{{ cActiveSubs }}" as="s" hint-placeholder-count="3"><button type="button" aria-pressed="{{ s.pressed }}" onClick="{{ s.onClick }}" style="{{ s.style }}">{{ s.label }}</button></sc-for>
               </span>
             </sc-if>
           </div>
@@ -192,7 +212,7 @@
 <div style="position:absolute; inset:0; background-image:url(assets/map-caballito-2.png); background-size:cover; background-position:center top;"></div>
 <div style="position:absolute; top:58px; left:14px; right:14px; display:flex; gap:8px; z-index:2;">
   <span style="display:flex; align-items:center; gap:6px; background:#fff; border-radius:999px; padding:9px 14px; font-size:13px; font-weight:700; color:#232323; box-shadow:0 2px 8px rgba(0,0,0,0.12);"><span style="width:12px; height:12px; border-radius:999px; border:1.8px solid #232323;"></span>Abierto ahora</span>
-  <span style="display:flex; align-items:center; gap:6px; background:#fff; border-radius:999px; padding:9px 14px; font-size:13px; font-weight:700; color:#232323; box-shadow:0 2px 8px rgba(0,0,0,0.12);"><span style="width:12px; height:12px; border-radius:999px; border:1.8px dashed #232323;"></span>Disponible en 1h</span>
+  <span style="display:flex; align-items:center; gap:6px; background:#fff; border-radius:999px; padding:9px 14px; font-size:13px; font-weight:700; color:#232323; box-shadow:0 2px 8px rgba(0,0,0,0.12);"><span style="width:12px; height:12px; border-radius:999px; border:1.8px dashed #232323;"></span>Turno en 1 hora</span>
 </div>
 <sc-for list="{{ cPins }}" as="p" hint-placeholder-count="10"><div style="{{ p.style }}"><img src="assets/Washify_Icono-Light.png" alt="" style="width:15px; height:15px; transform:rotate(45deg);"></div></sc-for>
 <div style="position:absolute; left:262px; top:112px; display:flex; flex-direction:column; align-items:center; gap:4px;"><span style="width:16px; height:16px; border-radius:999px; background:#3F6FE0; border:3px solid #fff; box-shadow:0 0 0 10px rgba(63,111,224,0.2);"></span></div>
@@ -214,9 +234,9 @@
   </div>
 </div>
 <div style="position:absolute; left:0; right:0; bottom:0; height:76px; background:#fff; border-top:1px solid #EEE7DC; display:flex; justify-content:space-around; align-items:flex-start; padding-top:12px; z-index:4;">
-  <div style="display:flex; flex-direction:column; align-items:center; gap:4px; color:#7B8FD6;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"></path><path d="M9 4v14M15 6v14"></path></svg><span style="font-size:10px; font-weight:800; letter-spacing:0.06em;">MAPA</span></div>
-  <div style="display:flex; flex-direction:column; align-items:center; gap:4px; color:#55554f;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="5" width="16" height="15" rx="2"></rect><path d="M4 10h16M9 3v4M15 3v4"></path></svg><span style="font-size:10px; font-weight:800; letter-spacing:0.06em;">RESERVAS</span></div>
-  <div style="display:flex; flex-direction:column; align-items:center; gap:4px; color:#55554f;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="10" r="3"></circle><path d="M6.5 18.5c1.5-2 3.4-3 5.5-3s4 1 5.5 3"></path></svg><span style="font-size:10px; font-weight:800; letter-spacing:0.06em;">PERFIL</span></div>
+  <div style="display:flex; flex-direction:column; align-items:center; gap:4px; color:#7B8FD6;"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"></path><path d="M9 4v14M15 6v14"></path></svg><span style="font-size:10px; font-weight:800; letter-spacing:0.02em;">Mapa</span></div>
+  <div style="display:flex; flex-direction:column; align-items:center; gap:4px; color:#55554f;"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="5" width="16" height="15" rx="2"></rect><path d="M4 10h16M9 3v4M15 3v4"></path></svg><span style="font-size:10px; font-weight:800; letter-spacing:0.02em;">Reservas</span></div>
+  <div style="display:flex; flex-direction:column; align-items:center; gap:4px; color:#55554f;"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="10" r="3"></circle><path d="M6.5 18.5c1.5-2 3.4-3 5.5-3s4 1 5.5 3"></path></svg><span style="font-size:10px; font-weight:800; letter-spacing:0.02em;">Perfil</span></div>
 </div>
 </sc-if>
 
@@ -229,19 +249,19 @@
   </div>
   <div style="position:absolute; top:252px; left:16px; right:16px;">
     <div style="background:#fff; border-radius:20px; padding:16px; display:flex; flex-direction:column; gap:14px; box-shadow:0 1px 0 #E8E0D4;">
-      <div style="display:flex; align-items:center; gap:14px;"><span style="width:42px; height:42px; border-radius:999px; background:#EEF0FA; display:flex; align-items:center; justify-content:center;"><span style="width:12px; height:12px; border-radius:50% 50% 50% 0; transform:rotate(-45deg); background:#E0505A;"></span></span><span style="display:flex; flex-direction:column; gap:2px;"><span style="font-size:11px; font-weight:800; letter-spacing:0.08em; color:#77776f;">DIRECCIÓN</span><span style="font-size:16px; font-weight:700; color:#232323;">Gorriti 4850, Palermo</span></span></div>
-      <div style="display:flex; align-items:center; gap:14px;"><span style="width:42px; height:42px; border-radius:999px; background:#EEF0FA; display:flex; align-items:center; justify-content:center;"><span style="width:14px; height:14px; border-radius:999px; border:2px solid #7B8FD6;"></span></span><span style="display:flex; flex-direction:column; gap:2px;"><span style="font-size:11px; font-weight:800; letter-spacing:0.08em; color:#77776f;">HORARIO</span><span style="font-size:16px; font-weight:700; color:#232323;">Lun a Sáb · 8 a 20 hs</span></span></div>
+      <div style="display:flex; align-items:center; gap:14px;"><span style="width:42px; height:42px; border-radius:999px; background:#EEF0FA; display:flex; align-items:center; justify-content:center;"><span style="width:12px; height:12px; border-radius:50% 50% 50% 0; transform:rotate(-45deg); background:#E0505A;"></span></span><span style="display:flex; flex-direction:column; gap:2px;"><span style="font-size:11px; font-weight:800; color:#77776f;">Dirección</span><span style="font-size:16px; font-weight:700; color:#232323;">Gorriti 4850, Palermo</span></span></div>
+      <div style="display:flex; align-items:center; gap:14px;"><span style="width:42px; height:42px; border-radius:999px; background:#EEF0FA; display:flex; align-items:center; justify-content:center;"><span style="width:14px; height:14px; border-radius:999px; border:2px solid #7B8FD6;"></span></span><span style="display:flex; flex-direction:column; gap:2px;"><span style="font-size:11px; font-weight:800; color:#77776f;">Horario</span><span style="font-size:16px; font-weight:700; color:#232323;">Lun a Sáb · 8 a 20 hs</span></span></div>
     </div>
     <div style="font-size:16px; font-weight:800; color:#232323; margin:18px 0 10px;">Ubicación</div>
     <div style="position:relative; height:160px; border-radius:18px; overflow:hidden; background-image:url(assets/map-street.png); background-size:cover; background-position:center;">
       <div style="position:absolute; left:50%; top:50%; margin:-34px 0 0 -17px; width:34px; height:34px; border-radius:50% 50% 50% 0; transform:rotate(-45deg); background:#7B8FD6; border:3px solid #fff; box-shadow:0 4px 10px rgba(0,0,0,0.25); display:flex; align-items:center; justify-content:center;"><img src="assets/Washify_Icono-Light.png" alt="" style="width:16px; height:16px; transform:rotate(45deg);"></div>
     </div>
   </div>
-  <div style="position:absolute; left:0; right:0; bottom:76px; background:#fff; padding:12px 16px; border-top:1px solid #EEE7DC; z-index:3;"><div style="background:#7B8FD6; color:#fff; border-radius:14px; padding:15px; text-align:center; font-size:16px; font-weight:800;">Reservar Turno</div></div>
+  <div style="position:absolute; left:0; right:0; bottom:76px; background:#fff; padding:12px 16px; border-top:1px solid #EEE7DC; z-index:3;"><div style="background:#7B8FD6; color:#fff; border-radius:14px; padding:15px; text-align:center; font-size:16px; font-weight:800;">Reservá tu turno</div></div>
   <div style="position:absolute; left:0; right:0; bottom:0; height:76px; background:#fff; border-top:1px solid #EEE7DC; display:flex; justify-content:space-around; align-items:flex-start; padding-top:12px; z-index:4;">
-  <div style="display:flex; flex-direction:column; align-items:center; gap:4px; color:#7B8FD6;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"></path><path d="M9 4v14M15 6v14"></path></svg><span style="font-size:10px; font-weight:800; letter-spacing:0.06em;">MAPA</span></div>
-  <div style="display:flex; flex-direction:column; align-items:center; gap:4px; color:#55554f;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="5" width="16" height="15" rx="2"></rect><path d="M4 10h16M9 3v4M15 3v4"></path></svg><span style="font-size:10px; font-weight:800; letter-spacing:0.06em;">RESERVAS</span></div>
-  <div style="display:flex; flex-direction:column; align-items:center; gap:4px; color:#55554f;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="10" r="3"></circle><path d="M6.5 18.5c1.5-2 3.4-3 5.5-3s4 1 5.5 3"></path></svg><span style="font-size:10px; font-weight:800; letter-spacing:0.06em;">PERFIL</span></div>
+  <div style="display:flex; flex-direction:column; align-items:center; gap:4px; color:#7B8FD6;"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"></path><path d="M9 4v14M15 6v14"></path></svg><span style="font-size:10px; font-weight:800; letter-spacing:0.02em;">Mapa</span></div>
+  <div style="display:flex; flex-direction:column; align-items:center; gap:4px; color:#55554f;"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="5" width="16" height="15" rx="2"></rect><path d="M4 10h16M9 3v4M15 3v4"></path></svg><span style="font-size:10px; font-weight:800; letter-spacing:0.02em;">Reservas</span></div>
+  <div style="display:flex; flex-direction:column; align-items:center; gap:4px; color:#55554f;"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="10" r="3"></circle><path d="M6.5 18.5c1.5-2 3.4-3 5.5-3s4 1 5.5 3"></path></svg><span style="font-size:10px; font-weight:800; letter-spacing:0.02em;">Perfil</span></div>
 </div>
 </sc-if>
 
@@ -260,40 +280,40 @@
         </div>
       </sc-for>
     </div>
-    <div style="display:flex; justify-content:space-between; align-items:baseline; margin:18px 0 10px;"><span style="font-size:18px; font-weight:800; color:#232323;">Seleccionar Fecha</span><span style="font-size:14px; font-weight:700; color:#7B8FD6;">Noviembre</span></div>
+    <div style="display:flex; justify-content:space-between; align-items:baseline; margin:18px 0 10px;"><span style="font-size:18px; font-weight:800; color:#232323;">Elegí la fecha</span><span style="font-size:14px; font-weight:700; color:#7B8FD6;">Noviembre</span></div>
     <div style="display:flex; gap:8px; width:400px;">
       <sc-for list="{{ cDays }}" as="d" hint-placeholder-count="5"><div style="{{ d.style }}"><span style="font-size:12px; font-weight:600;">{{ d.name }}</span><span style="font-size:22px; font-weight:900;">{{ d.num }}</span></div></sc-for>
     </div>
-    <div style="font-size:18px; font-weight:800; color:#232323; margin:18px 0 10px;">Horarios Disponibles</div>
+    <div style="font-size:18px; font-weight:800; color:#232323; margin:18px 0 10px;">Elegí el horario</div>
     <div style="display:flex; gap:8px;">
       <sc-for list="{{ cTimes }}" as="t" hint-placeholder-count="4"><span style="{{ t.style }}">{{ t.time }}</span></sc-for>
     </div>
   </div>
-  <div style="position:absolute; left:0; right:0; bottom:76px; background:#fff; padding:12px 16px; border-top:1px solid #EEE7DC; z-index:3;"><div style="{{ cCtaStyle }}">Reservar Turno</div></div>
+  <div style="position:absolute; left:0; right:0; bottom:76px; background:#fff; padding:12px 16px; border-top:1px solid #EEE7DC; z-index:3;"><div style="{{ cCtaStyle }}">Reservá tu turno</div></div>
   <div style="position:absolute; left:0; right:0; bottom:0; height:76px; background:#fff; border-top:1px solid #EEE7DC; display:flex; justify-content:space-around; align-items:flex-start; padding-top:12px; z-index:4;">
-  <div style="display:flex; flex-direction:column; align-items:center; gap:4px; color:#7B8FD6;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"></path><path d="M9 4v14M15 6v14"></path></svg><span style="font-size:10px; font-weight:800; letter-spacing:0.06em;">MAPA</span></div>
-  <div style="display:flex; flex-direction:column; align-items:center; gap:4px; color:#55554f;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="5" width="16" height="15" rx="2"></rect><path d="M4 10h16M9 3v4M15 3v4"></path></svg><span style="font-size:10px; font-weight:800; letter-spacing:0.06em;">RESERVAS</span></div>
-  <div style="display:flex; flex-direction:column; align-items:center; gap:4px; color:#55554f;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="10" r="3"></circle><path d="M6.5 18.5c1.5-2 3.4-3 5.5-3s4 1 5.5 3"></path></svg><span style="font-size:10px; font-weight:800; letter-spacing:0.06em;">PERFIL</span></div>
+  <div style="display:flex; flex-direction:column; align-items:center; gap:4px; color:#7B8FD6;"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"></path><path d="M9 4v14M15 6v14"></path></svg><span style="font-size:10px; font-weight:800; letter-spacing:0.02em;">Mapa</span></div>
+  <div style="display:flex; flex-direction:column; align-items:center; gap:4px; color:#55554f;"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="5" width="16" height="15" rx="2"></rect><path d="M4 10h16M9 3v4M15 3v4"></path></svg><span style="font-size:10px; font-weight:800; letter-spacing:0.02em;">Reservas</span></div>
+  <div style="display:flex; flex-direction:column; align-items:center; gap:4px; color:#55554f;"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="10" r="3"></circle><path d="M6.5 18.5c1.5-2 3.4-3 5.5-3s4 1 5.5 3"></path></svg><span style="font-size:10px; font-weight:800; letter-spacing:0.02em;">Perfil</span></div>
 </div>
 </sc-if>
 
 <sc-if value="{{ cs4 }}" hint-placeholder-val="{{ false }}">
   <div style="height:108px; background:#2B2B2B; border-radius:0 0 26px 26px; position:relative;">
     <span style="position:absolute; left:18px; top:64px; font-size:15px; font-weight:700; color:#F5EDE2;">‹ Volver</span>
-    <span style="position:absolute; left:0; right:0; top:62px; text-align:center; font-size:18px; font-weight:800; color:#fff;">Checkout</span>
+    <span style="position:absolute; left:0; right:0; top:62px; text-align:center; font-size:18px; font-weight:800; color:#fff;">Pago</span>
   </div>
   <div style="padding:16px; display:flex; flex-direction:column; gap:14px;">
     <div style="background:#fff; border-radius:20px; border-top:4px solid #7B8FD6; padding:16px 18px;">
-      <div style="font-size:16px; font-weight:800; color:#232323;">Resumen de Reserva</div>
+      <div style="font-size:16px; font-weight:800; color:#232323;">Revisá tu reserva</div>
       <div style="font-size:15px; font-weight:800; color:#232323; margin-top:12px;">Bruma Auto Spa</div>
-      <div style="font-size:13px; font-weight:500; color:#55554f; margin-top:4px;">Miércoles, 4 de noviembre, 09:00 hs</div>
-      <div style="display:flex; justify-content:space-between; font-size:13.5px; margin-top:14px;"><span style="color:#232323;">Lavado Completo Premium</span><span style="font-weight:800;">$ 17.500</span></div>
-      <div style="display:flex; justify-content:space-between; font-size:13px; color:#6b6b66; margin-top:6px;"><span>Comisión de servicio (10%)</span><span>$ 1.750</span></div>
+      <div style="font-size:13px; font-weight:500; color:#55554f; margin-top:4px;">Miércoles 4 de noviembre, 9:00 hs</div>
+      <div style="display:flex; justify-content:space-between; font-size:13.5px; margin-top:14px;"><span style="color:#232323;">Lavado completo</span><span style="font-weight:800;">$17.500</span></div>
+      <div style="display:flex; justify-content:space-between; font-size:13px; color:#6b6b66; margin-top:6px;"><span>Cargo de servicio</span><span>$950</span></div>
       <div style="height:1px; background:#EEE7DC; margin:12px 0;"></div>
-      <div style="display:flex; justify-content:space-between; align-items:baseline;"><span style="font-size:15px; font-weight:800;">Total</span><span style="font-size:20px; font-weight:900; color:#7B8FD6;">$ 19.250</span></div>
+      <div style="display:flex; justify-content:space-between; align-items:baseline;"><span style="font-size:15px; font-weight:800;">Total</span><span style="font-size:20px; font-weight:900; color:#7B8FD6;">$18.450</span></div>
     </div>
     <div style="background:#fff; border-radius:20px; padding:16px 18px;">
-      <div style="font-size:16px; font-weight:800; color:#232323;">Método de Pago</div>
+      <div style="font-size:16px; font-weight:800; color:#232323;">Elegí cómo pagar</div>
       <div style="background:#EEF1F6; border-radius:12px; padding:11px 13px; margin-top:12px; font-size:13px; color:#232323;"><strong>Toyota Corolla Cross</strong> · AF 284 KD</div>
       <div style="font-size:12px; font-weight:700; color:#55554f; margin:12px 0 6px;">Número de tarjeta</div>
       <div style="background:#F6F1EA; border:1px solid #E8E0D4; border-radius:12px; padding:12px 13px; font-size:14px; font-weight:600; letter-spacing:0.08em;">4821 •••• •••• 7730</div>
@@ -303,24 +323,22 @@
       </div>
     </div>
   </div>
-  <div style="position:absolute; left:16px; right:16px; bottom:28px; background:#7B8FD6; color:#fff; border-radius:14px; padding:15px; text-align:center; font-size:16px; font-weight:800; box-shadow:0 8px 20px rgba(123,143,214,0.35);">Pagar $ 19.250</div>
+  <div style="position:absolute; left:16px; right:16px; bottom:28px; background:#7B8FD6; color:#fff; border-radius:14px; padding:15px; text-align:center; font-size:16px; font-weight:800; box-shadow:0 8px 20px rgba(123,143,214,0.35);">Pagar $18.450</div>
 </sc-if>
 
 <sc-if value="{{ cs5 }}" hint-placeholder-val="{{ false }}">
   <div style="display:flex; align-items:center; justify-content:center; position:relative; height:44px; margin-top:52px;">
     <span style="position:absolute; left:16px; width:40px; height:40px; border-radius:999px; background:#fff; display:flex; align-items:center; justify-content:center; font-size:18px; color:#232323;">✕</span>
-    <span style="font-size:16px; font-weight:800; color:#232323;">Reserva Confirmada</span>
-  </div>
+      </div>
   <div style="display:flex; flex-direction:column; align-items:center; text-align:center; padding:18px 18px 0;">
     <div style="width:84px; height:84px; border-radius:999px; background:#2FC25B; color:#fff; font-size:40px; font-weight:900; display:flex; align-items:center; justify-content:center; box-shadow:0 0 0 16px rgba(47,194,91,0.12), 0 10px 24px rgba(47,194,91,0.35);">✓</div>
-    <div style="font-size:26px; font-weight:900; letter-spacing:-0.02em; color:#232323; margin-top:24px;">¡Reserva exitosa!</div>
-    <div style="font-size:14px; font-weight:500; color:#6b6b66; margin-top:6px; max-width:250px;">Tu lavado en Washify ha sido programado correctamente.</div>
+    <div style="font-size:26px; font-weight:900; letter-spacing:-0.02em; color:#232323; margin-top:24px;">¡Listo, ya tenés turno!</div>
+    <div style="font-size:14px; font-weight:500; color:#6b6b66; margin-top:6px; max-width:270px;">Tu turno quedó agendado. Llegá, dejá el auto y seguí el lavado en vivo.</div>
     <div style="width:100%; background:#fff; border-radius:22px; padding:16px 18px; margin-top:18px; text-align:left; display:flex; flex-direction:column; gap:12px;">
-      <span style="align-self:flex-start; font-size:11px; font-weight:800; letter-spacing:0.08em; color:#7B8FD6; background:#E8ECF9; padding:5px 11px; border-radius:999px;">CONFIRMADO</span>
-      <span style="font-size:19px; font-weight:800; color:#232323;">Bruma Auto Spa</span>
-      <div style="display:flex; gap:12px; align-items:center;"><span style="width:40px; height:40px; border-radius:12px; background:#F4ECE1; flex-shrink:0; display:flex; align-items:center; justify-content:center; color:#7B8FD6;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="5" width="16" height="15" rx="2"></rect><path d="M4 10h16M9 3v4M15 3v4"></path></svg></span><span style="display:flex; flex-direction:column; gap:2px;"><span style="font-size:10.5px; font-weight:800; letter-spacing:0.08em; color:#77776f;">FECHA Y HORA</span><span style="font-size:15px; font-weight:700; color:#232323;">4 de Noviembre, 09:00 hs</span></span></div>
-      <div style="display:flex; gap:12px; align-items:center;"><span style="width:40px; height:40px; border-radius:12px; background:#F4ECE1; flex-shrink:0; display:flex; align-items:center; justify-content:center; color:#7B8FD6;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-6-5.5-6-11a6 6 0 0 1 12 0c0 5.5-6 11-6 11z"></path><circle cx="12" cy="10" r="2.2"></circle></svg></span><span style="display:flex; flex-direction:column; gap:2px;"><span style="font-size:10.5px; font-weight:800; letter-spacing:0.08em; color:#77776f;">UBICACIÓN</span><span style="font-size:15px; font-weight:700; color:#232323;">Gorriti 4850, Palermo</span></span></div>
-      <div style="border-top:1px solid #EEE7DC; padding-top:10px; display:flex; justify-content:space-between; align-items:baseline;"><span style="font-size:13px; font-weight:800; color:#232323;">Lavado Completo Premium</span><span style="font-size:16px; font-weight:900; color:#7B8FD6;">$ 19.250</span></div>
+      <span style="display:flex; flex-direction:column; gap:2px;"><span style="font-size:19px; font-weight:800; color:#232323;">Bruma Auto Spa</span><span style="font-size:13px; font-weight:600; color:#6b6b66;">Lavado completo</span></span>
+      <div style="display:flex; gap:12px; align-items:center;"><span style="width:40px; height:40px; border-radius:12px; background:#F4ECE1; flex-shrink:0; display:flex; align-items:center; justify-content:center; color:#7B8FD6;"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="5" width="16" height="15" rx="2"></rect><path d="M4 10h16M9 3v4M15 3v4"></path></svg></span><span style="display:flex; flex-direction:column; gap:2px;"><span style="font-size:10.5px; font-weight:800; color:#77776f;">Fecha y hora</span><span style="font-size:15px; font-weight:700; color:#232323;">Miércoles 4 de noviembre, 9:00 hs</span></span></div>
+      <div style="display:flex; gap:12px; align-items:center;"><span style="width:40px; height:40px; border-radius:12px; background:#F4ECE1; flex-shrink:0; display:flex; align-items:center; justify-content:center; color:#7B8FD6;"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-6-5.5-6-11a6 6 0 0 1 12 0c0 5.5-6 11-6 11z"></path><circle cx="12" cy="10" r="2.2"></circle></svg></span><span style="display:flex; flex-direction:column; gap:2px;"><span style="font-size:10.5px; font-weight:800; color:#77776f;">Dirección</span><span style="font-size:15px; font-weight:700; color:#232323;">Gorriti 4850, Palermo</span></span></div>
+      <div style="border-top:1px solid #EEE7DC; padding-top:10px; display:flex; justify-content:space-between; align-items:baseline;"><span style="font-size:13px; font-weight:800; color:#232323;">Total pagado</span><span style="font-size:16px; font-weight:900; color:#7B8FD6;">$18.450</span></div>
     </div>
   </div>
   <div style="position:absolute; left:16px; right:16px; bottom:26px; display:flex; flex-direction:column; gap:10px;">
@@ -338,10 +356,10 @@
   </div>
   <div style="position:absolute; left:12px; right:12px; top:282px; display:flex; flex-direction:column; gap:10px;">
     <div style="background:rgba(245,245,247,0.92); backdrop-filter:blur(20px); border-radius:24px; padding:14px 14px 16px; display:flex; flex-direction:column; gap:12px; box-shadow:0 14px 36px rgba(0,0,0,0.3);">
-      <div style="display:flex; align-items:center; gap:10px;"><span style="width:42px; height:42px; border-radius:11px; background:#F5EDE2; flex-shrink:0; display:flex; align-items:center; justify-content:center; box-shadow:inset 0 0 0 1px rgba(0,0,0,0.06);"><img src="assets/Washify_Icono-Blue.png" alt="Washify" style="width:26px; height:26px;"></span><span style="flex:1; display:flex; justify-content:space-between; font-size:12.5px; font-weight:700; color:#55555a;"><span>WASHIFY</span><span>ahora</span></span></div>
+      <div style="display:flex; align-items:center; gap:10px;"><span style="width:42px; height:42px; border-radius:11px; background:#F5EDE2; flex-shrink:0; display:flex; align-items:center; justify-content:center; box-shadow:inset 0 0 0 1px rgba(0,0,0,0.06);"><img src="assets/Washify_Icono-Blue.png" alt="Washify" style="width:26px; height:26px;"></span><span style="flex:1; display:flex; justify-content:space-between; font-size:12.5px; font-weight:700; color:#55555a;"><span>Washify</span><span>ahora</span></span></div>
       <div style="display:flex; flex-direction:column; gap:4px; color:#1c1c1e;">
         <span style="font-size:16px; font-weight:800;">¡Tu auto está listo para retirar!</span>
-        <span style="font-size:13.5px; font-weight:500; line-height:1.4; color:#3a3a3c;">Bruma Auto Spa terminó el Lavado Completo Premium de tu Toyota Corolla Cross. Te esperamos en Gorriti 4850.</span>
+        <span style="font-size:13.5px; font-weight:500; line-height:1.4; color:#3a3a3c;">Bruma Auto Spa terminó el lavado completo de tu Toyota Corolla Cross. Te esperamos en Gorriti 4850.</span>
       </div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
         <span style="text-align:center; font-size:13px; font-weight:800; color:#fff; background:#7B8FD6; padding:10px; border-radius:12px;">Cómo llegar</span>
@@ -349,10 +367,10 @@
       </div>
     </div>
     <div style="background:rgba(245,245,247,0.72); backdrop-filter:blur(16px); border-radius:20px; padding:11px 13px; display:flex; gap:11px; align-items:center;">
-      <span style="position:relative; flex-shrink:0;"><span style="width:36px; height:36px; border-radius:9px; background:#F5EDE2; flex-shrink:0; display:flex; align-items:center; justify-content:center; box-shadow:inset 0 0 0 1px rgba(0,0,0,0.06);"><img src="assets/Washify_Icono-Blue.png" alt="Washify" style="width:22px; height:22px;"></span><span style="position:absolute; right:-4px; bottom:-4px; width:18px; height:18px; border-radius:6px; background:#3F7BF0; border:2px solid #f1f1f3; display:flex; align-items:center; justify-content:center;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg></span></span>
+      <span style="position:relative; flex-shrink:0;"><span style="width:36px; height:36px; border-radius:9px; background:#F5EDE2; flex-shrink:0; display:flex; align-items:center; justify-content:center; box-shadow:inset 0 0 0 1px rgba(0,0,0,0.06);"><img src="assets/Washify_Icono-Blue.png" alt="Washify" style="width:22px; height:22px;"></span><span style="position:absolute; right:-4px; bottom:-4px; width:18px; height:18px; border-radius:6px; background:#3F7BF0; border:2px solid #f1f1f3; display:flex; align-items:center; justify-content:center;"><svg aria-hidden="true" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg></span></span>
       <span style="flex:1; min-width:0; display:flex; flex-direction:column; gap:1px; color:#1c1c1e;">
-        <span style="display:flex; justify-content:space-between; font-size:11.5px; font-weight:700; color:#55555a;"><span>MAIL · Washify</span><span>ahora</span></span>
-        <span style="font-size:13px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Tu auto está listo para retirar</span>
+        <span style="display:flex; justify-content:space-between; font-size:11.5px; font-weight:700; color:#55555a;"><span>Mail · Washify</span><span>ahora</span></span>
+        <span style="font-size:13px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">¡Tu auto está listo para retirar!</span>
       </span>
     </div>
   </div>
@@ -368,14 +386,14 @@
         </div></div>
       <div style="{{ cCtaStyle2 }}">
         <a href="/muy-pronto" style="display:inline-flex; align-items:center; justify-content:center; background:#0D0D0D; color:#F5EDE2; font-size:17px; font-weight:800; padding:18px 36px; border-radius:999px; text-decoration:none; transition:background 0.2s;" style-hover="background:#7DA5ED; color:#0D0D0D;">Reservá desde la web</a>
-        <span style="font-size:15px; font-weight:600; color:#8a8a82;">La app llega pronto a App Store y Google Play.</span>
+        <span style="font-size:15px; font-weight:600; color:#5a5a54;">La app llega pronto a App Store y Google Play.</span>
       </div>
     </div>
   </section>
 
   <!-- ============ LAVADEROS ============ -->
   <section id="lavaderos" data-screen-label="Para lavaderos" style="{{ lavaderosSectionStyle }}">
-    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMaxYMin meet" style="position:absolute; top:0; right:0; height:100%; pointer-events:none; opacity:0.55;">
+    <svg aria-hidden="true" viewBox="0 0 1440 900" preserveAspectRatio="xMaxYMin meet" style="position:absolute; top:0; right:0; height:100%; pointer-events:none; opacity:0.55;">
       <g fill="none" stroke="#F5EDE2" stroke-width="40">
         <circle cx="1440" cy="0" r="130"></circle>
         <circle cx="1440" cy="0" r="260"></circle>
@@ -384,10 +402,11 @@
     </svg>
     <div style="{{ lavGridStyle }}">
       <div style="font-size:14px; font-weight:800; letter-spacing:0.2em; text-transform:uppercase; color:#0D0D0D; margin-bottom:16px; grid-area:eb; align-self:end;">Para lavaderos</div>
-      <h2 style="{{ lavaderosH2Style }}">Gestioná tu lavadero como nunca antes.</h2>
-      <p style="{{ lavaderosBodyStyle }}">Te damos el sistema de gestión completo: turnos, agenda y estado de cada lavado. Y de yapa, un canal nuevo de reservas con los clientes de Washify. Te suscribís, configurás todo con nuestro wizard y arrancás solo: gratis los primeros 3 meses.</p>
+      <h2 style="{{ lavaderosH2Style }}">Turnos, agenda y cobros de tu lavadero en un solo lugar.</h2>
+      <p style="{{ lavaderosBodyStyle }}">Gestioná turnos, agenda y estado de cada lavado. Y de yapa, clientes nuevos que reservan desde Washify. Gratis 3 meses, después $20.000 por mes. Cancelás cuando quieras.</p>
 
       <div style="{{ lavMonStyle }}">
+        <div style="{{ monitorWrapStyle }}">
         <div style="background:#141412; border-radius:22px; padding:14px 14px 30px; box-shadow:0 50px 90px -30px rgba(18,36,92,0.55); position:relative;">
           <div ref="{{ screenRef }}" style="position:relative; width:100%; aspect-ratio:16/10; overflow:hidden; background:#F4EDE3; border-radius:6px;">
             <div style="{{ appCanvasStyle }}">
@@ -414,12 +433,12 @@
                 <div style="flex:1; display:flex; flex-direction:column; min-width:0;">
                   <div style="height:46px; background:#fff; border-bottom:1px solid #ECE4D8; display:flex; align-items:center; justify-content:space-between; padding:0 24px;">
                     <span style="font-size:14px; font-weight:800;">Lavadero Costanera</span>
-                    <span style="font-size:12px; font-weight:500; color:#6b6b66;">Viernes, 23 de octubre</span>
+                    <span style="font-size:12px; font-weight:500; color:#6b6b66;">Viernes 23 de octubre</span>
                   </div>
                   <div style="height:42px; background:#fff; border-bottom:1px solid #ECE4D8; display:flex; align-items:center; justify-content:space-between; padding:0 24px;">
                     <div style="display:flex; align-items:center; gap:12px;">
                       <span style="font-size:11px; font-weight:700; color:#3F5FBF; background:#E6ECFA; padding:5px 10px; border-radius:999px;">● Publicado en el mapa</span>
-                      <span style="font-size:11px; font-weight:500; color:#6b6b66;">Recibiendo reservas desde el 14/03</span>
+                      <span style="font-size:11px; font-weight:500; color:#6b6b66;">Recibís reservas desde el 14 de marzo</span>
                     </div>
                     <div style="display:flex; align-items:center; gap:10px;">
                       <span style="font-size:12px; font-weight:800;">Encendido</span>
@@ -441,7 +460,7 @@
                           </sc-for>
                         </div>
                         <div style="width:230px; flex-shrink:0; display:flex; flex-direction:column; gap:12px;">
-                          <div style="font-size:11.5px; color:#6b6b66; padding:2px 2px 0;">Suscripción: <strong style="color:#1f1f1f;">Activa · Plan Pro</strong></div>
+                          <div style="font-size:11.5px; color:#6b6b66; padding:2px 2px 0;">Suscripción: <strong style="color:#1f1f1f;">Activa</strong></div>
                           <div style="background:#fff; border:1px solid #EBE3D7; border-radius:12px; padding:13px 14px;">
                             <div style="font-size:11.5px; font-weight:700; color:#55554f;">☆ Calificación</div>
                             <div style="display:flex; align-items:baseline; gap:8px; margin-top:8px;"><span style="font-size:22px; font-weight:900;">4,8</span><span style="font-size:13px; color:#E3A72F; letter-spacing:1px;">★★★★★</span></div>
@@ -485,17 +504,17 @@
 
                     <sc-if value="{{ isDia }}" hint-placeholder-val="{{ false }}">
                       <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-                        <div><div style="font-size:22px; font-weight:900;">Agenda</div><div style="font-size:12.5px; color:#6b6b66; margin-top:2px;">Viernes, 23 de octubre</div></div>
+                        <div><div style="font-size:22px; font-weight:900;">Agenda</div><div style="font-size:12.5px; color:#6b6b66; margin-top:2px;">Viernes 23 de octubre</div></div>
                         <div style="display:flex; background:#EDE5D9; border-radius:10px; padding:3px;"><span style="font-size:12px; font-weight:800; background:#fff; padding:6px 14px; border-radius:8px;">Día</span><span style="font-size:12px; font-weight:600; color:#55554f; padding:6px 14px;">Semana</span></div>
                       </div>
                       <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:18px;">
                         <div>
-                          <div style="font-size:12px; font-weight:800; letter-spacing:0.06em; margin-bottom:8px;">GRILLA DE TURNOS</div>
+                          <div style="font-size:12px; font-weight:800; margin-bottom:8px;">Grilla de turnos</div>
                           <div style="background:#fff; border:1px solid #EBE3D7; border-radius:12px; padding:6px 0;">
                             <sc-for list="{{ daySlots }}" as="s" hint-placeholder-count="7">
                               <div style="display:flex; flex-direction:column;">
                                 <sc-if value="{{ s.nowBefore }}" hint-placeholder-val="{{ false }}">
-                                  <div style="display:flex; align-items:center; gap:8px; padding:2px 16px;"><span style="width:8px; height:8px; border-radius:999px; background:#5B7BD6;"></span><span style="flex:1; height:1.5px; background:#5B7BD6;"></span><span style="font-size:9.5px; font-weight:800; color:#5B7BD6; letter-spacing:0.06em;">AHORA 14:40</span></div>
+                                  <div style="display:flex; align-items:center; gap:8px; padding:2px 16px;"><span style="width:8px; height:8px; border-radius:999px; background:#5B7BD6;"></span><span style="flex:1; height:1.5px; background:#5B7BD6;"></span><span style="font-size:9.5px; font-weight:800; color:#5B7BD6; letter-spacing:0.02em;">Ahora 14:40</span></div>
                                 </sc-if>
                                 <div style="display:flex; align-items:center; gap:14px; padding:6px 16px;">
                                   <span style="width:42px; font-size:13px; font-weight:800; color:#33332f;">{{ s.time }}</span>
@@ -509,7 +528,7 @@
                           </div>
                         </div>
                         <div>
-                          <div style="font-size:12px; font-weight:800; letter-spacing:0.06em; margin-bottom:8px;">LISTA DE RESERVAS</div>
+                          <div style="font-size:12px; font-weight:800; margin-bottom:8px;">Lista de reservas</div>
                           <div style="display:flex; gap:4px; background:#EDE5D9; border-radius:10px; padding:3px; margin-bottom:10px;">
                             <span style="font-size:11.5px; font-weight:800; background:#fff; padding:6px 12px; border-radius:8px;">Todos (6)</span>
                             <span style="font-size:11.5px; font-weight:600; color:#55554f; padding:6px 10px;">Confirmados (2)</span>
@@ -559,7 +578,7 @@
                     </sc-if>
 
                     <sc-if value="{{ isReportes }}" hint-placeholder-val="{{ false }}">
-                      <div style="font-size:20px; font-weight:900;">Reporte de Ventas</div>
+                      <div style="font-size:20px; font-weight:900;">Reporte de ventas</div>
                       <div style="display:flex; align-items:center; gap:6px; margin-top:10px;">
                         <span style="font-size:11.5px; font-weight:600; background:#fff; border:1px solid #E2D9CC; padding:6px 11px; border-radius:7px;">Hoy</span>
                         <span style="font-size:11.5px; font-weight:600; background:#fff; border:1px solid #E2D9CC; padding:6px 11px; border-radius:7px;">Esta semana</span>
@@ -580,7 +599,7 @@
                       </div>
                       <div style="display:grid; grid-template-columns:300px minmax(0,1fr); gap:12px; margin-top:12px;">
                         <div style="background:#fff; border:1px solid #EBE3D7; border-radius:12px; padding:12px 14px;">
-                          <div style="font-size:12.5px; font-weight:800; margin-bottom:10px;">Combos más vendidos</div>
+                          <div style="font-size:12.5px; font-weight:800; margin-bottom:10px;">Servicios más vendidos</div>
                           <div style="display:flex; flex-direction:column; gap:9px;">
                             <sc-for list="{{ combos }}" as="cb" hint-placeholder-count="5">
                               <div style="display:flex; flex-direction:column; gap:4px;">
@@ -591,15 +610,15 @@
                           </div>
                         </div>
                         <div style="background:#fff; border:1px solid #EBE3D7; border-radius:12px; overflow:hidden;">
-                          <div style="display:grid; grid-template-columns:78px 66px 1.2fr 74px 1.2fr 70px 78px; gap:8px; padding:9px 14px; background:#F8F4EE; font-size:10px; font-weight:800; color:#6b6b66; letter-spacing:0.05em;">
-                            <span>FECHA</span><span>TIPO</span><span>CLIENTE</span><span>PATENTE</span><span>COMBO</span><span>MONTO</span><span>ESTADO</span>
+                          <div style="display:grid; grid-template-columns:78px 66px 1.2fr 74px 1.2fr 70px 78px; gap:8px; padding:9px 14px; background:#F8F4EE; font-size:10px; font-weight:800; color:#6b6b66;">
+                            <span>Fecha</span><span>Tipo</span><span>Cliente</span><span>Patente</span><span>Servicio</span><span>Monto</span><span>Estado</span>
                           </div>
                           <sc-for list="{{ sales }}" as="sl" hint-placeholder-count="5">
                             <div style="display:grid; grid-template-columns:78px 66px 1.2fr 74px 1.2fr 70px 78px; gap:8px; padding:8px 14px; border-top:1px solid #F1EBE1; font-size:11px; align-items:center;">
                               <span style="color:#55554f;">{{ sl.f }}</span><span>{{ sl.tipo }}</span><span style="font-weight:700;">{{ sl.cliente }}</span><span style="font-family:ui-monospace,monospace; font-size:10.5px;">{{ sl.pat }}</span><span>{{ sl.combo }}</span><span style="font-weight:800;">{{ sl.monto }}</span><span style="{{ sl.chipStyle }}">{{ sl.estado }}</span>
                             </div>
                           </sc-for>
-                          <div style="padding:8px 14px; border-top:1px solid #F1EBE1; font-size:10.5px; color:#6b6b66;">Mostrando 1–5 de 335 registros</div>
+                          <div style="padding:8px 14px; border-top:1px solid #F1EBE1; font-size:10.5px; color:#6b6b66;">5 de 335 reservas</div>
                         </div>
                       </div>
                     </sc-if>
@@ -613,10 +632,81 @@
         </div>
         <div style="width:18%; aspect-ratio:150/64; margin:0 auto; background:linear-gradient(#262623, #161614); clip-path:polygon(18% 0, 82% 0, 100% 100%, 0 100%);"></div>
         <div style="width:39%; height:12px; margin:0 auto; background:#161614; border-radius:999px 999px 6px 6px;"></div>
+        </div>
 
-        <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-top:20px;">
+        <!-- Versión mobile del portal: el monitor en miniatura no se lee en pantallas chicas -->
+        <sc-if value="{{ portalMobile }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#141412; border-radius:30px; padding:10px; box-shadow:0 40px 70px -30px rgba(18,36,92,0.55);">
+            <div style="background:#F4EDE3; border-radius:22px; overflow:hidden; font-family:'Hanken Grotesk',sans-serif; color:#1f1f1f;">
+              <div style="background:#2B2B2B; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 16px;">
+                <img src="assets/Washify_Logo-Light.png" alt="" style="height:18px; display:block;">
+                <span style="font-size:13px; font-weight:700; color:#F5EDE2;">Lavadero Costanera</span>
+              </div>
+              <div style="padding:16px; min-height:420px;">
+                <sc-if value="{{ isDash }}" hint-placeholder-val="{{ true }}">
+                  <div style="font-size:20px; font-weight:900;">Inicio</div>
+                  <div style="font-size:13px; color:#6b6b66; margin-top:2px;">Viernes 23 de octubre</div>
+                  <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px;">
+                    <sc-for list="{{ mDashKpis }}" as="k" hint-placeholder-count="4">
+                      <div style="background:#fff; border:1px solid #EBE3D7; border-radius:12px; padding:12px;">
+                        <div style="font-size:12.5px; font-weight:700; color:#55554f;">{{ k.label }}</div>
+                        <div style="font-size:21px; font-weight:900; letter-spacing:-0.01em; margin-top:6px;">{{ k.value }}</div>
+                        <div style="font-size:12px; font-weight:600; color:#2E7D4A; margin-top:2px;">{{ k.delta }}</div>
+                      </div>
+                    </sc-for>
+                  </div>
+                  <div style="background:#fff; border:1px solid #EBE3D7; border-radius:12px; padding:12px; margin-top:10px; display:flex; justify-content:space-between; align-items:center;">
+                    <span style="font-size:12.5px; font-weight:700; color:#55554f;">Calificación</span>
+                    <span style="display:flex; align-items:baseline; gap:8px;"><span style="font-size:20px; font-weight:900;">4,8</span><span style="font-size:13px; color:#B7801A; letter-spacing:1px;">★★★★★</span></span>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ isDia }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-size:20px; font-weight:900;">Agenda del día</div>
+                  <div style="font-size:13px; color:#6b6b66; margin-top:2px;">Viernes 23 de octubre</div>
+                  <div style="background:#fff; border:1px solid #EBE3D7; border-radius:12px; margin-top:14px;">
+                    <sc-for list="{{ mDayList }}" as="r" hint-placeholder-count="6">
+                      <div style="display:flex; align-items:center; gap:12px; padding:11px 12px; border-bottom:1px solid #F1EBE1;">
+                        <span style="font-size:13px; font-weight:800; width:40px; flex-shrink:0;">{{ r.time }}</span>
+                        <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:2px;">
+                          <span style="font-size:13.5px; font-weight:700;">{{ r.cliente }}</span>
+                          <span style="font-size:12px; color:#6b6b66;">{{ r.combo }}</span>
+                        </div>
+                        <span style="{{ r.chipStyle }}">{{ r.status }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ isReportes }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-size:20px; font-weight:900;">Reporte de ventas</div>
+                  <div style="font-size:13px; color:#6b6b66; margin-top:2px;">Este mes</div>
+                  <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px;">
+                    <sc-for list="{{ mRepKpis }}" as="rk" hint-placeholder-count="4">
+                      <div style="{{ rk.style }}">
+                        <span style="{{ rk.labelStyle }}">{{ rk.label }}</span>
+                        <span style="font-size:19px; font-weight:900;">{{ rk.value }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                  <div style="background:#fff; border:1px solid #EBE3D7; border-radius:12px; padding:12px; margin-top:10px;">
+                    <div style="font-size:13.5px; font-weight:800; margin-bottom:10px;">Servicios más vendidos</div>
+                    <div style="display:flex; flex-direction:column; gap:9px;">
+                      <sc-for list="{{ combos }}" as="cb" hint-placeholder-count="5">
+                        <div style="display:flex; flex-direction:column; gap:4px;">
+                          <div style="display:flex; justify-content:space-between; font-size:12.5px;"><span style="font-weight:600;">{{ cb.name }}</span><span style="color:#6b6b66;">{{ cb.n }}</span></div>
+                          <div style="height:6px; background:#F1EBE1; border-radius:999px;"><div style="{{ cb.barStyle }}"></div></div>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </div>
+                </sc-if>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <div role="tablist" aria-label="Pantallas del portal" style="display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-top:20px;">
           <sc-for list="{{ screenTabs }}" as="t" hint-placeholder-count="4">
-            <button onClick="{{ t.onClick }}" style="{{ t.style }}">{{ t.label }}</button>
+            <button type="button" role="tab" aria-selected="{{ t.selected }}" onClick="{{ t.onClick }}" style="{{ t.style }}">{{ t.label }}</button>
           </sc-for>
         </div>
         <p style="font-size:16px; line-height:1.5; font-weight:600; color:#12245c; text-align:center; margin:12px auto 0; max-width:520px;">{{ screenCaption }}</p>
@@ -632,9 +722,7 @@
       </div>
       <div style="{{ lavCtaStyle }}">
         <a href="/muy-pronto" style="display:inline-flex; align-items:center; justify-content:center; background:#0D0D0D; color:#F5EDE2; font-size:17px; font-weight:800; padding:18px 36px; border-radius:999px; text-decoration:none; transition:transform 0.2s;" style-hover="transform:translateY(-3px);">Quiero sumarme →</a>
-        <span style="font-size:14px; font-weight:600; color:#12245c; line-height:1.4;">Alta 100% online: pasás la tarjeta, completás el wizard y arrancás solo.</span>
-        <a href="/muy-pronto" style="font-size:15px; font-weight:800; color:#0D0D0D;">¿Ya sos parte? Ingresá al portal →</a>
-      </div>
+        <span style="font-size:14px; font-weight:600; color:#12245c; line-height:1.4;">Alta 100% online: pasás la tarjeta, completás la configuración guiada y arrancás.</span>      </div>
     </div>
   </section>
 
@@ -644,31 +732,13 @@
       <div>
         <div style="{{ eyebrowLightStyle }}">Contacto</div>
         <h2 style="{{ contactH2Style }}">¿Tenés dudas? Escribinos.</h2>
-        <p style="{{ contactBodyStyle }}">El alta no depende de este formulario: es 100% autogestionada, te suscribís, pasás la tarjeta y con el wizard configurás tu lavadero solo, en minutos. Si antes querés resolver alguna duda, dejanos tus datos y te respondemos.</p>
-        <div style="display:flex; flex-direction:column; gap:14px; margin-top:44px;">
-          <div style="display:flex; align-items:center; gap:14px;">
-            <span style="width:8px; height:8px; border-radius:999px; background:#7DA5ED; flex-shrink:0;"></span>
-            <span style="font-size:16px; font-weight:600; color:#F5EDE2;">Alta y configuración 100% autogestionada, con nuestro wizard</span>
-          </div>
-          <div style="display:flex; align-items:center; gap:14px;">
-            <span style="width:8px; height:8px; border-radius:999px; background:#7DA5ED; flex-shrink:0;"></span>
-            <span style="font-size:16px; font-weight:600; color:#F5EDE2;">Gratis los primeros 3 meses, pagás a partir del 4to</span>
-          </div>
-          <div style="display:flex; align-items:center; gap:14px;">
-            <span style="width:8px; height:8px; border-radius:999px; background:#7DA5ED; flex-shrink:0;"></span>
-            <span style="font-size:16px; font-weight:600; color:#F5EDE2;">Reservas de clientes Washify desde el día uno</span>
-          </div>
-        </div>
-        <div style="display:flex; flex-wrap:wrap; align-items:center; gap:20px; margin-top:40px;">
-          <a href="/muy-pronto" style="display:inline-flex; align-items:center; justify-content:center; background:#7DA5ED; color:#0D0D0D; font-size:16px; font-weight:800; padding:16px 32px; border-radius:999px; text-decoration:none; transition:transform 0.2s;" style-hover="transform:translateY(-2px);">Empezar ahora →</a>
-          <span style="font-size:14px; font-weight:600; color:#8a8580;">Te suscribís y accedés directo al wizard, sin esperar a nadie.</span>
-        </div>
+        <p style="{{ contactBodyStyle }}">Dejanos tus datos y te respondemos por WhatsApp o mail.</p>
       </div>
       <sc-if value="{{ formSent }}" hint-placeholder-val="{{ false }}">
         <div style="{{ successCardStyle }}">
           <div style="width:72px; height:72px; border-radius:999px; background:#7DA5ED; color:#0D0D0D; font-size:34px; font-weight:900; display:flex; align-items:center; justify-content:center; margin:0 auto;">✓</div>
           <div style="font-size:30px; font-weight:800; color:#F5EDE2; margin-top:28px;">¡Listo! Ya recibimos tu consulta.</div>
-          <p style="font-size:17px; line-height:1.55; color:#b9b3a8; margin:14px 0 0;">En breve te respondemos. Mientras tanto, podés arrancar el alta cuando quieras: es autogestionada.</p>
+          <p style="font-size:17px; line-height:1.55; color:#b9b3a8; margin:14px 0 0;">En breve te escribimos por WhatsApp o mail.</p>
         </div>
       </sc-if>
       <sc-if value="{{ formNotSent }}" hint-placeholder-val="{{ true }}">
@@ -678,29 +748,30 @@
           </p>
           <div style="{{ formRowStyle }}">
             <label style="display:flex; flex-direction:column; gap:8px;">
-              <span style="font-size:13px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#8a8a82;">Tu nombre</span>
+              <span style="font-size:14px; font-weight:700; color:#b9b3a8;">Tu nombre</span>
               <input required name="nombre" type="text" placeholder="Nombre y apellido" style="font-family:inherit; font-size:16px; font-weight:500; color:#F5EDE2; background:#0D0D0D; border:1px solid #2a2a26; border-radius:14px; padding:15px 18px; outline:none;" style-focus="border-color:#7DA5ED;">
             </label>
             <label style="display:flex; flex-direction:column; gap:8px;">
-              <span style="font-size:13px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#8a8a82;">Lavadero</span>
+              <span style="font-size:14px; font-weight:700; color:#b9b3a8;">Lavadero</span>
               <input required name="lavadero" type="text" placeholder="Nombre del lavadero" style="font-family:inherit; font-size:16px; font-weight:500; color:#F5EDE2; background:#0D0D0D; border:1px solid #2a2a26; border-radius:14px; padding:15px 18px; outline:none;" style-focus="border-color:#7DA5ED;">
             </label>
           </div>
           <div style="{{ formRowStyle }}">
             <label style="display:flex; flex-direction:column; gap:8px;">
-              <span style="font-size:13px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#8a8a82;">Teléfono / WhatsApp</span>
+              <span style="font-size:14px; font-weight:700; color:#b9b3a8;">Teléfono o WhatsApp</span>
               <input required name="telefono" type="tel" placeholder="+54 9 ..." style="font-family:inherit; font-size:16px; font-weight:500; color:#F5EDE2; background:#0D0D0D; border:1px solid #2a2a26; border-radius:14px; padding:15px 18px; outline:none;" style-focus="border-color:#7DA5ED;">
             </label>
             <label style="display:flex; flex-direction:column; gap:8px;">
-              <span style="font-size:13px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#8a8a82;">Ciudad / Zona</span>
+              <span style="font-size:14px; font-weight:700; color:#b9b3a8;">Ciudad o barrio</span>
               <input required name="ciudad" type="text" placeholder="Ej: Palermo, CABA" style="font-family:inherit; font-size:16px; font-weight:500; color:#F5EDE2; background:#0D0D0D; border:1px solid #2a2a26; border-radius:14px; padding:15px 18px; outline:none;" style-focus="border-color:#7DA5ED;">
             </label>
           </div>
           <label style="display:flex; flex-direction:column; gap:8px;">
-            <span style="font-size:13px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#8a8a82;">Tu consulta <span style="text-transform:none; letter-spacing:0; font-weight:500;">(opcional)</span></span>
+            <span style="font-size:14px; font-weight:700; color:#b9b3a8;">Tu consulta <span style="font-weight:500; color:#8a8a82;">(opcional)</span></span>
             <textarea name="mensaje" rows="4" placeholder="Contanos qué querés saber antes de arrancar..." style="font-family:inherit; font-size:16px; font-weight:500; color:#F5EDE2; background:#0D0D0D; border:1px solid #2a2a26; border-radius:14px; padding:15px 18px; outline:none; resize:vertical;" style-focus="border-color:#7DA5ED;"></textarea>
           </label>
           <button type="submit" style="font-family:inherit; font-size:17px; font-weight:800; color:#0D0D0D; background:#7DA5ED; border:none; border-radius:999px; padding:18px 36px; cursor:pointer; transition:transform 0.2s; margin-top:8px;" style-hover="transform:translateY(-2px);">{{ submitLabel }}</button>
+          <p style="font-size:13px; font-weight:500; color:#8a8a82; margin:-20px 0 0;">Usamos tus datos solo para responder tu consulta.</p>
           <sc-if value="{{ formError }}" hint-placeholder-val="{{ false }}">
             <p style="font-size:15px; font-weight:600; color:#e08a8a; margin:0;">Uy, algo falló al enviar el formulario. Probá de nuevo o escribinos por WhatsApp.</p>
           </sc-if>
@@ -714,8 +785,8 @@
     <div style="{{ footerRowStyle }}">
       <img src="assets/Washify_Logo-Light.png" alt="Washify" style="height:28px; display:block;">
       <div style="{{ footerRightStyle }}">
-        <span style="font-size:14px; font-weight:600; color:#6a6a62;">Reservá. Llegá. Seguí.</span>
-        <span style="font-size:14px; font-weight:500; color:#4a4a44;">© 2026 Washify</span>
+        <span style="font-size:14px; font-weight:600; color:#9a958c;">Reservá. Llegá. Seguí.</span>
+        <span style="font-size:14px; font-weight:500; color:#8a8a82;">© 2026 Washify</span>
       </div>
     </div>
   </footer>
@@ -728,11 +799,11 @@ class Component extends DCLogic {
   state = { sent: false, sending: false, error: false, isMobile: false, menuOpen: false };
 
   bubbleRef = React.createRef();
-  queEsRef = React.createRef();
+  clientesRef = React.createRef();
   cGridRef = React.createRef();
 
   fitPhone() {
-    const q = this.queEsRef.current, g = this.cGridRef.current;
+    const q = this.clientesRef.current, g = this.cGridRef.current;
     if (!q || !g || this.state.isMobile) return;
     const offset = g.getBoundingClientRect().top - q.getBoundingClientRect().top;
     const s = Math.max(0.5, Math.min(0.9, (window.innerHeight - 80 - offset - 28) / 784));
@@ -743,6 +814,12 @@ class Component extends DCLogic {
   setScreen(id, manual) {
     this.setState({ screen: id });
     if (manual && this._rot) { clearInterval(this._rot); this._rot = null; }
+  }
+
+  setMenu(open) {
+    this.setState({ menuOpen: open });
+    // Bloquea el scroll de la página mientras el menú mobile está abierto.
+    document.body.style.overflow = open ? "hidden" : "";
   }
 
   setCScreen(i, manual) {
@@ -788,8 +865,6 @@ class Component extends DCLogic {
         columnGap: m ? 0 : L === "B" ? 56 : 88, rowGap: m ? 28 : 28, alignItems: "center", alignContent: "center",
 
       },
-      cQueEsStyle: m ? { paddingBottom: 36, borderBottom: "1px solid #E6DCCD" } : { display: "grid", gridTemplateColumns: (L === "C" ? Math.round(380 * s) + "px" : "minmax(0,1fr)") + " minmax(0,1fr)", columnGap: 88, paddingBottom: 28, borderBottom: "1px solid #E6DCCD" },
-      cQueEsInner: { gridColumn: m ? "auto" : "2" },
       cHeadStyle: { gridArea: "head", alignSelf: m ? "auto" : L === "B" ? "end" : "end" },
       cH2Style: { fontSize: m ? "clamp(30px, 8vw, 40px)" : "clamp(36px, 3.4vw, 52px)", lineHeight: 1.04, fontWeight: 900, letterSpacing: "-0.03em", margin: 0, maxWidth: 560, textWrap: "balance" },
       cStepsAreaStyle: { gridArea: "steps", alignSelf: L === "B" && !m ? "center" : "start" },
@@ -808,20 +883,20 @@ class Component extends DCLogic {
     const A = "#7B8FD6";
     const step = cs <= 4 ? 0 : cs === 5 ? 1 : 2;
     const flow = [
-      ["Reservá", "Elegí el lavadero más cerca, el servicio y el horario que te quede cómodo.", 0],
-      ["Llegá", "Tu turno ya está listo. Dejás el auto y seguís con tu día, sin filas.", 5],
-      ["Nosotros te avisamos", "Mirá el estado de tu lavado desde el celular y pasá a buscarlo justo a tiempo.", 6],
+      ["Reservá", "Elegí lavadero, servicio y horario.", 0],
+      ["Llegá", "Llegá a tu hora, dejá el auto y seguí con tu día.", 5],
+      ["Seguí", "Mirá el estado de tu lavado desde el celular y pasá a buscarlo justo a tiempo.", 6],
     ];
     const subs = [["Lavadero", [0, 1], 0], ["Servicio y horario", [2, 3], 2], ["Pago", [4], 4]];
     const cFlow = flow.map(([title, desc, first], i) => {
       const on = i === step;
       return {
-        num: "0" + (i + 1), title, desc, onClick: () => this.setCScreen(first, true),
+        num: "0" + (i + 1), title, desc, selected: on ? "true" : "false", onClick: () => this.setCScreen(first, true),
         hasSubs: i === 0 && on,
         subs: subs.map(([label, range, go]) => {
           const cur = range.includes(cs), done = cs > range[range.length - 1];
           return {
-            label, onClick: () => this.setCScreen(go, true),
+            label, pressed: cur ? "true" : "false", onClick: () => this.setCScreen(go, true),
             style: { fontFamily: "inherit", fontSize: 12, fontWeight: 800, padding: "6px 12px", borderRadius: 999, border: "none", cursor: "pointer", background: cur ? "#0D0D0D" : done ? "#E6ECFA" : "#F5EDE2", color: cur ? "#F5EDE2" : done ? "#3F5FBF" : "#8a8a82" },
           };
         }),
@@ -837,20 +912,23 @@ class Component extends DCLogic {
     const pin = (x, y, dark) => ({ style: { position: "absolute", left: x - 15, top: y - 34, width: 30, height: 30, borderRadius: "50% 50% 50% 0", transform: "rotate(-45deg)", background: dark ? "#232323" : A, border: "2.5px solid #fff", boxShadow: "0 3px 8px rgba(0,0,0,0.25)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 1 } });
     const basePins = [[96, 150], [262, 236], [118, 330], [300, 380], [180, 420]];
     const sel = cs === 3;
-    const cServices = [["Lavado Completo Premium", "Exterior, interior, aspirado y secado a mano", "$ 17.500", true], ["Lavado Exterior Express", "Carrocería, llantas y secado · 30 min", "$ 10.500", false]].map(([name, desc, price, main]) => ({
+    const cServices = [["Lavado completo", "Exterior, interior, aspirado y secado a mano", "$17.500", true], ["Lavado exterior", "Carrocería, llantas y secado · 30 min", "$10.500", false]].map(([name, desc, price, main]) => ({
       name, desc, price,
       cardStyle: { display: "flex", alignItems: "center", gap: 12, background: sel && main ? "#F1F3FB" : "#fff", borderRadius: 18, padding: 12, boxShadow: sel && main ? "inset 0 0 0 2px " + A : "0 1px 0 #E8E0D4" },
       checkStyle: { width: 24, height: 24, borderRadius: 999, background: A, color: "#fff", fontSize: 13, fontWeight: 900, display: sel && main ? "flex" : "none", alignItems: "center", justifyContent: "center", flexShrink: 0 },
     }));
-    const cDays = [["LUN", "02"], ["MAR", "03"], ["MIÉ", "04"], ["JUE", "05"], ["VIE", "06"]].map(([name, num]) => ({
+    const cDays = [["Lun", "2"], ["Mar", "3"], ["Mié", "4"], ["Jue", "5"], ["Vie", "6"]].map(([name, num]) => ({
       name, num,
-      style: { width: 66, height: 78, flexShrink: 0, borderRadius: 16, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 2, background: num === "04" ? A : "#fff", color: num === "04" ? "#fff" : "#232323", boxShadow: num === "04" ? "0 8px 18px rgba(123,143,214,0.35)" : "0 1px 0 #E8E0D4" },
+      style: { width: 66, height: 78, flexShrink: 0, borderRadius: 16, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 2, background: num === "4" ? A : "#fff", color: num === "4" ? "#fff" : "#232323", boxShadow: num === "4" ? "0 8px 18px rgba(123,143,214,0.35)" : "0 1px 0 #E8E0D4" },
     }));
-    const cTimes = ["09:00 hs", "11:30 hs", "14:00 hs", "16:30 hs"].map((time, i) => ({
+    const cTimes = ["9:00 hs", "11:30 hs", "14:00 hs", "16:30 hs"].map((time, i) => ({
       time,
       style: { fontSize: 13, fontWeight: 700, padding: "11px 14px", borderRadius: 999, whiteSpace: "nowrap", background: sel && i === 0 ? A : "transparent", color: sel && i === 0 ? "#fff" : "#232323", border: "1px solid " + (sel && i === 0 ? A : "#E2D7C8") },
     }));
     const darkStatus = cs === 1 || cs === 4 || cs === 6;
+    const near = [["Bruma Auto Spa", "★ 4,9 · 600 m", "assets/photo-wash-1.jpg", "center 60%"], ["Norte Detailing", "★ 4,8 · 1,4 km", "assets/photo-wash-3.jpg", "center 55%"], ["Puerto Lavado", "★ 4,7 · 2,2 km", "assets/photo-wash-2.jpg", "center 62%"]].map(([name, meta, img, pos]) => ({
+      name, meta, style: { position: "relative", width: 240, height: 128, flexShrink: 0, borderRadius: 18, overflow: "hidden", backgroundImage: "url(" + img + ")", backgroundSize: "cover", backgroundPosition: pos },
+    }));
     return {
       ...this.layoutVals(cFlow, step, cs),
       cStatusStyle: { position: "absolute", top: 0, left: 0, right: 0, height: 48, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 30px", fontSize: 14, fontWeight: 800, zIndex: 5, color: darkStatus ? "#fff" : "#232323" },
@@ -858,12 +936,7 @@ class Component extends DCLogic {
       cFlow, cServices, cDays, cTimes,
       cPins: basePins.map(p => pin(...p)),
       heroPins: [[150, 168], [300, 214], [70, 300], [236, 352], [140, 420]].map(p => pin(p[0], p[1], false)),
-      cNearHero: [["Norte Detailing", "★ 4,8 · 600 m", "assets/photo-wash-3.jpg", "center 55%"], ["Puerto Lavado", "★ 4,7 · 1,4 km", "assets/photo-wash-2.jpg", "center 62%"], ["Bruma Auto Spa", "★ 4,9 · 2,2 km", "assets/photo-wash-1.jpg", "center 60%"]].map(([name, meta, img, pos]) => ({
-        name, meta, style: { position: "relative", width: 240, height: 128, flexShrink: 0, borderRadius: 18, overflow: "hidden", backgroundImage: "url(" + img + ")", backgroundSize: "cover", backgroundPosition: pos },
-      })),
-      cNear: [["Bruma Auto Spa", "★ 4,9 · 1,2 km", "assets/photo-wash-1.jpg", "center 60%"], ["Norte Detailing", "★ 4,8 · 2,1 km", "assets/photo-wash-3.jpg", "center 55%"], ["Puerto Lavado", "★ 4,7 · 3,4 km", "assets/photo-wash-2.jpg", "center 62%"]].map(([name, meta, img, pos]) => ({
-        name, meta, style: { position: "relative", width: 240, height: 128, flexShrink: 0, borderRadius: 18, overflow: "hidden", backgroundImage: "url(" + img + ")", backgroundSize: "cover", backgroundPosition: pos },
-      })),
+      cNearHero: near, cNear: near,
       cCtaStyle: { background: sel ? A : "#BCC6EC", color: "#fff", borderRadius: 14, padding: 15, textAlign: "center", fontSize: 16, fontWeight: 800, boxShadow: sel ? "0 8px 20px rgba(123,143,214,0.35)" : "none" },
       cs1: cs === 0, cs2: cs === 1, cs3: cs === 2 || cs === 3, cs4: cs === 4, cs5: cs === 5, cs6: cs === 6,
       heroPhoneStyle: this.state.wide
@@ -873,7 +946,10 @@ class Component extends DCLogic {
   }
 
   portalVals() {
-    const scr = this.state.screen || "dash";
+    const m = this.state.isMobile;
+    // En mobile no hay vista semanal: si venía seleccionada, se muestra la del día.
+    const rawScr = this.state.screen || "dash";
+    const scr = m && rawScr === "semana" ? "dia" : rawScr;
     const scale = this.state.screenScale || 0.6;
     const A = "#5B7BD6", SOFT = "#E6ECFA";
     const chip = (st) => {
@@ -881,14 +957,14 @@ class Component extends DCLogic {
       return { fontSize: 10.5, fontWeight: 700, background: m[0], color: m[1], padding: "4px 9px", borderRadius: 999, whiteSpace: "nowrap", justifySelf: "start" };
     };
     const screens = [
-      { id: "dash", label: "Dashboard", caption: "Lavados, ingresos, propinas y ocupación del día y del mes, de un vistazo." },
+      { id: "dash", label: "Inicio", caption: "Lavados, ingresos, propinas y ocupación del día y del mes, de un vistazo." },
       { id: "dia", label: "Agenda del día", caption: "Cada turno con su cliente, su auto y el estado del lavado en tiempo real." },
       { id: "semana", label: "Agenda semanal", caption: "Toda la semana ordenada: reservas de la app y turnos presenciales juntos." },
-      { id: "reportes", label: "Reportes", caption: "Ventas por canal, combos más vendidos y detalle exportable a Excel o PDF." },
+      { id: "reportes", label: "Reportes", caption: "Ventas por canal, servicios más vendidos y detalle exportable a Excel o PDF." },
     ];
-    const navActive = scr === "dash" ? "Dashboard" : scr === "reportes" ? "Reportes" : "Agenda";
+    const navActive = scr === "dash" ? "Inicio" : scr === "reportes" ? "Reportes" : "Agenda";
     const navDefs = [
-      { label: "Dashboard", go: "dash" }, { label: "Agenda", go: "dia" }, { label: "Tienda" },
+      { label: "Inicio", go: "dash" }, { label: "Agenda", go: "dia" }, { label: "Tienda" },
       { label: "Punto de venta", sub: true }, { label: "Stock", sub: true },
       { label: "Reportes", go: "reportes" }, { label: "Configuración" },
     ];
@@ -908,13 +984,13 @@ class Component extends DCLogic {
     });
 
     const dashKpis = [
-      ["Lavados del día", "18", "+3 vs. viernes pasado"], ["Ingresos del día", "$ 241.500", "+12%"], ["Propinas del día", "$ 14.200,00", ""], ["Ventas Tienda (día)", "$ 31.600", ""],
-      ["Lavados del mes", "326", "+9% vs. septiembre"], ["Ingresos del mes", "$ 4.385.000", "+14%"], ["Propinas del mes", "$ 268.400,00", ""], ["Ventas Tienda (mes)", "$ 512.300", ""],
+      ["Lavados del día", "18", "+3 vs. viernes pasado"], ["Ingresos del día", "$241.500", "+12%"], ["Propinas del día", "$14.200", ""], ["Ventas tienda (día)", "$31.600", ""],
+      ["Lavados del mes", "326", "+9% vs. septiembre"], ["Ingresos del mes", "$4.385.000", "+14%"], ["Propinas del mes", "$268.400", ""], ["Ventas tienda (mes)", "$512.300", ""],
       ["Ocupación promedio", "78%", ""], ["Tiempo total prom.", "42 min", ""], ["Reclamos activos", "1", ""],
     ].map(([label, value, delta]) => ({ label, value, delta }));
     const hours = [[8, 2], [9, 3], [10, 4], [11, 3], [12, 2], [13, 1], [14, 3], [15, 0], [16, 0], [17, 0], [18, 0], [19, 0], [20, 0]];
     const hourBars = hours.map(([h, n]) => ({
-      h: String(h).padStart(2, "0"), n: n || "",
+      h: String(h), n: n || "",
       style: { width: "100%", height: n ? n * 26 : 4, background: n ? A : "#EEE7DC", borderRadius: 4 },
     }));
     const levels = ["#F1EADF", "#E3E9F8", "#C9D5F3", "#8FA6E6", A];
@@ -926,7 +1002,7 @@ class Component extends DCLogic {
     });
 
     const slots = [
-      ["09:00", "Lucía Benítez", "Toyota Corolla · AE 412 KD", "Lavado completo", "Finalizado"],
+      ["9:00", "Lucía Benítez", "Toyota Corolla · AE 412 KD", "Lavado completo", "Finalizado"],
       ["10:30", "Gonzalo Ríos", "VW Amarok · AD 098 TR", "Premium + cera", "Finalizado"],
       ["12:00", "Carolina Méndez", "Peugeot 208 · AF 731 BN", "Lavado exterior", "Finalizado"],
       ["14:00", "Federico Acosta", "Ford Ranger · AC 556 PL", "Completo + motor", "En proceso"],
@@ -945,14 +1021,14 @@ class Component extends DCLogic {
     }));
     const dayList = slots.filter(s => s[1]).map(([time, cliente, auto, combo, status]) => ({ time, cliente, auto, combo, status, chipStyle: chip(status) }));
 
-    const weekNames = ["LUN", "MAR", "MIÉ", "JUE", "VIE", "SÁB", "DOM"];
+    const weekNames = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
     const weekDays = weekNames.map((name, i) => ({
       name, num: 19 + i,
       numStyle: i === 4
         ? { width: 24, height: 24, borderRadius: 999, background: "#6F8FDB", color: "#fff", fontSize: 12, fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center" }
         : { fontSize: 14, fontWeight: 800, height: 24, display: "flex", alignItems: "center" },
     }));
-    const wHours = ["09:00", "10:30", "12:00", "14:00", "15:30", "17:00", "18:30"];
+    const wHours = ["9:00", "10:30", "12:00", "14:00", "15:30", "17:00", "18:30"];
     const pats = ["AE 412 KD", "AD 098 TR", "AF 731 BN", "AC 556 PL", "AF 204 MZ", "AE 889 GX", "AB 377 HC", "AG 115 RS", "AD 642 FV", "AF 958 LT"];
     const cmb = ["Completo", "Exterior", "Premium", "Interior", "Completo"];
     const weekCells = [];
@@ -973,8 +1049,8 @@ class Component extends DCLogic {
     });
 
     const repKpis = [
-      ["Total facturado", "$ 4.385.000"], ["Ventas online", "$ 2.614.000"], ["Ventas en local", "$ 1.258.700"],
-      ["Ventas tienda", "$ 512.300"], ["Propinas", "$ 268.400"], ["Ticket promedio", "$ 13.450"],
+      ["Total facturado", "$4.385.000"], ["Ventas online", "$2.614.000"], ["Ventas en local", "$1.258.700"],
+      ["Ventas tienda", "$512.300"], ["Propinas", "$268.400"], ["Ticket promedio", "$13.450"],
       ["Reservas online", "198"], ["Lavados presenciales", "128"], ["Cancelaciones", "9"],
     ].map(([label, value], i) => ({
       label, value,
@@ -984,11 +1060,11 @@ class Component extends DCLogic {
     const combos = [["Lavado completo", 142], ["Lavado exterior", 88], ["Premium + cera", 54], ["Interior detallado", 31], ["Completo + motor", 11]]
       .map(([name, n]) => ({ name, n, barStyle: { width: (n / 142 * 100) + "%", height: "100%", background: A, borderRadius: 999 } }));
     const sales = [
-      ["23/10 14:00", "Online", "Federico Acosta", "AC 556 PL", "Completo + motor", "$ 28.500", "En proceso"],
-      ["23/10 12:00", "Online", "Carolina Méndez", "AF 731 BN", "Lavado exterior", "$ 9.800", "Finalizado"],
-      ["23/10 11:15", "Presencial", "Ramiro Quiroga", "AB 377 HC", "Lavado completo", "$ 14.500", "Finalizado"],
-      ["23/10 10:30", "Online", "Gonzalo Ríos", "AD 098 TR", "Premium + cera", "$ 22.000", "Finalizado"],
-      ["23/10 10:05", "Tienda", "Sofía Herrera", "—", "Aromatizante + paño", "$ 6.200", "Finalizado"],
+      ["23/10 14:00", "Online", "Federico Acosta", "AC 556 PL", "Completo + motor", "$28.500", "En proceso"],
+      ["23/10 12:00", "Online", "Carolina Méndez", "AF 731 BN", "Lavado exterior", "$9.800", "Finalizado"],
+      ["23/10 11:15", "Presencial", "Ramiro Quiroga", "AB 377 HC", "Lavado completo", "$14.500", "Finalizado"],
+      ["23/10 10:30", "Online", "Gonzalo Ríos", "AD 098 TR", "Premium + cera", "$22.000", "Finalizado"],
+      ["23/10 10:05", "Tienda", "Sofía Herrera", "—", "Aromatizante + paño", "$6.200", "Finalizado"],
     ].map(([f, tipo, cliente, pat, combo, monto, estado]) => ({ f, tipo, cliente, pat, combo, monto, estado, chipStyle: chip(estado) }));
 
     return {
@@ -996,8 +1072,13 @@ class Component extends DCLogic {
       appCanvasStyle: { position: "absolute", top: 0, left: 0, width: 1280, height: 800, transform: "scale(" + scale + ")", transformOrigin: "top left" },
       isDash: scr === "dash", isDia: scr === "dia", isSemana: scr === "semana", isReportes: scr === "reportes",
       screenCaption: (screens.find(s => s.id === scr) || screens[0]).caption,
-      screenTabs: screens.map(s => ({
-        label: s.label, onClick: () => this.setScreen(s.id, true),
+      portalMobile: m,
+      monitorWrapStyle: { display: m ? "none" : "block" },
+      mDashKpis: [dashKpis[0], dashKpis[1], dashKpis[4], dashKpis[5]],
+      mDayList: dayList.map(r => ({ ...r, chipStyle: { ...r.chipStyle, fontSize: 12 } })),
+      mRepKpis: [repKpis[0], repKpis[1], repKpis[2], repKpis[5]].map(rk => ({ ...rk, labelStyle: { ...rk.labelStyle, fontSize: 12 } })),
+      screenTabs: screens.filter(s => !(m && s.id === "semana")).map(s => ({
+        label: s.label, selected: s.id === scr ? "true" : "false", onClick: () => this.setScreen(s.id, true),
         style: {
           fontFamily: "inherit", fontSize: 15, fontWeight: 800, cursor: "pointer", border: "none",
           padding: "12px 22px", borderRadius: 999, transition: "background 0.2s",
@@ -1018,14 +1099,16 @@ class Component extends DCLogic {
       ...this.portalVals(),
       ...this.clientVals(),
       bubbleCanvas: this.bubbleRef,
-      queEsRef: this.queEsRef, cGridRef: this.cGridRef,
+      clientesRef: this.clientesRef, cGridRef: this.cGridRef,
       formSent: this.state.sent,
       formNotSent: !this.state.sent,
       formError: this.state.error,
       sending: this.state.sending,
       submitLabel: this.state.sending ? "Enviando..." : "Enviar consulta",
-      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
-      closeMenu: () => this.setState({ menuOpen: false }),
+      toggleMenu: () => this.setMenu(!menuOpen),
+      closeMenu: () => this.setMenu(false),
+      menuExpanded: menuOpen ? "true" : "false",
+      menuButtonLabel: menuOpen ? "Cerrar menú" : "Abrir menú",
 
       headerStyle: {
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 50,
@@ -1041,14 +1124,15 @@ class Component extends DCLogic {
       },
       menuButtonStyle: {
         display: m ? "flex" : "none", flexDirection: "column", justifyContent: "center", gap: 5,
-        width: 40, height: 40, background: "transparent", border: "none", cursor: "pointer", padding: 0,
+        alignItems: "center", width: 44, height: 44, background: "transparent", border: "none", cursor: "pointer", padding: 0,
       },
       burgerLine1Style: { width: 24, height: 2, background: "#F5EDE2", borderRadius: 2, transition: "transform 0.2s", transform: menuOpen ? "translateY(7px) rotate(45deg)" : "none" },
       burgerLine2Style: { width: 24, height: 2, background: "#F5EDE2", borderRadius: 2, opacity: menuOpen ? 0 : 1, transition: "opacity 0.2s" },
       burgerLine3Style: { width: 24, height: 2, background: "#F5EDE2", borderRadius: 2, transition: "transform 0.2s", transform: menuOpen ? "translateY(-7px) rotate(-45deg)" : "none" },
       mobileMenuStyle: {
-        display: (m && menuOpen) ? "flex" : "none", flexDirection: "column", gap: 20,
-        position: "absolute", top: "100%", left: 0, right: 0,
+        // Panel a pantalla completa debajo del header (100% = alto del header fijo).
+        display: (m && menuOpen) ? "flex" : "none", flexDirection: "column", gap: 4,
+        position: "absolute", top: "100%", left: 0, right: 0, height: "calc(100dvh - 100%)", overflowY: "auto",
         background: "#0D0D0D", padding: "28px 24px 32px", borderTop: "1px solid #2a2a26",
       },
 
@@ -1092,15 +1176,31 @@ class Component extends DCLogic {
         animation: "wf-fade-up 0.9s 0.25s ease-out both", flexWrap: "wrap",
       },
 
-      sectionPadStyle: { background: "#F5EDE2", padding: m ? "56px 24px 0" : "44px 48px 0" },
-      queEsBodyStyle: { fontSize: m ? 17 : 18, lineHeight: 1.55, fontWeight: 500, color: "#4a4a44", margin: "14px 0 0", maxWidth: 640, textWrap: "pretty" },
       contactSectionStyle: { background: "#0D0D0D", padding: m ? "64px 24px" : "110px 48px" },
       eyebrowLightStyle: {
         fontSize: 14, fontWeight: 800, letterSpacing: "0.2em", textTransform: "uppercase",
         color: "#7DA5ED", marginBottom: m ? 16 : 24,
       },
+      // Sobre fondo claro el azul de marca no llega a 4,5:1; se usa el azul oscuro.
+      eyebrowOnLightStyle: {
+        fontSize: 14, fontWeight: 800, letterSpacing: "0.2em", textTransform: "uppercase",
+        color: "#3F5FBF", marginBottom: m ? 16 : 24,
+      },
 
-      clientesSectionStyle: { background: "#F5EDE2", padding: m ? "40px 24px 64px" : "28px 48px 64px", scrollMarginTop: 80 },
+      queEsSectionStyle: { background: "#F5EDE2", padding: m ? "64px 24px 0" : "96px 48px 0", scrollMarginTop: 80 },
+      queEsInnerStyle: { maxWidth: 1200, margin: "0 auto", paddingBottom: m ? 48 : 72, borderBottom: "1px solid #E6DCCD" },
+      queEsHeadStyle: m
+        ? { display: "flex", flexDirection: "column", gap: 16 }
+        : { display: "grid", gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)", columnGap: 88, alignItems: "end" },
+      queEsBodyStyle: { fontSize: m ? 17 : 19, lineHeight: 1.55, fontWeight: 500, color: "#4a4a44", margin: 0, maxWidth: 560, textWrap: "pretty" },
+      queEsCardsStyle: { display: "grid", gridTemplateColumns: m ? "1fr" : "1fr 1fr", gap: m ? 14 : 24, marginTop: m ? 32 : 48 },
+      queEsCardStyle: { display: "flex", flexDirection: "column", gap: 10, background: "#fff", borderRadius: 24, padding: m ? "24px 22px" : "32px 34px", textDecoration: "none", color: "#0D0D0D", transition: "transform 0.2s", boxShadow: "0 18px 40px -24px rgba(13,13,13,0.18)" },
+      queEsCardBlueStyle: { display: "flex", flexDirection: "column", gap: 10, background: "#7DA5ED", borderRadius: 24, padding: m ? "24px 22px" : "32px 34px", textDecoration: "none", color: "#0D0D0D", transition: "transform 0.2s" },
+      queEsCardTitleStyle: { fontSize: m ? 24 : 28, lineHeight: 1.1, fontWeight: 900, letterSpacing: "-0.02em" },
+      queEsCardTextStyle: { fontSize: m ? 16 : 17, lineHeight: 1.5, fontWeight: 500, color: "#4a4a44" },
+      queEsCardTextBlueStyle: { fontSize: m ? 16 : 17, lineHeight: 1.5, fontWeight: 500, color: "#12245c" },
+
+      clientesSectionStyle: { background: "#F5EDE2", padding: m ? "56px 24px 64px" : "64px 48px 64px", scrollMarginTop: 80 },
 
       lavaderosSectionStyle: {
         position: "relative", background: "#7DA5ED", padding: m ? "64px 24px" : this.state.wide ? "32px 48px" : "72px 48px", overflow: "hidden", scrollMarginTop: 80,
@@ -1108,7 +1208,7 @@ class Component extends DCLogic {
       },
       lavaderosH2Style: {
         gridArea: "h2", fontSize: m ? "clamp(32px, 8vw, 44px)" : "clamp(34px, 3.2vw, 48px)", lineHeight: 1.04, fontWeight: 900,
-        letterSpacing: "-0.03em", color: "#F5EDE2", margin: 0, maxWidth: 720, textWrap: "balance",
+        letterSpacing: "-0.03em", color: "#0D0D0D", margin: 0, maxWidth: 720, textWrap: "balance",
       },
       lavaderosBodyStyle: { gridArea: "p", fontSize: m ? 17 : 16.5, lineHeight: 1.5, fontWeight: 500, color: "#12245c", maxWidth: 600, margin: m ? "16px 0 0" : "14px 0 0", textWrap: "pretty" },
       perksGridStyle: { gridArea: "perks", display: "flex", flexDirection: "column", gap: 8, marginTop: m ? 28 : 20 },
@@ -1177,7 +1277,10 @@ class Component extends DCLogic {
 
   componentDidMount() {
     const mq = window.matchMedia("(max-width: 860px)");
-    const applyMq = () => this.setState({ isMobile: mq.matches, menuOpen: mq.matches ? this.state.menuOpen : false });
+    const applyMq = () => {
+      this.setState({ isMobile: mq.matches });
+      if (!mq.matches && this.state.menuOpen) this.setMenu(false);
+    };
     applyMq();
     if (mq.addEventListener) mq.addEventListener("change", applyMq);
     else mq.addListener(applyMq);
@@ -1195,8 +1298,8 @@ class Component extends DCLogic {
       this._ro = new ResizeObserver(([e]) => this.setState({ screenScale: e.contentRect.width / 1280 }));
       this._ro.observe(this.screenRef.current);
     }
-    const order = ["dash", "dia", "semana", "reportes"];
     this._rot = setInterval(() => {
+      const order = this.state.isMobile ? ["dash", "dia", "reportes"] : ["dash", "dia", "semana", "reportes"];
       const i = order.indexOf(this.state.screen || "dash");
       this.setState({ screen: order[(i + 1) % order.length] });
     }, 6000);
@@ -1237,6 +1340,8 @@ class Component extends DCLogic {
     });
     const bubbles = Array.from({ length: 26 }, () => makeBubble(true));
 
+    // Con "reducir movimiento" activado se dibuja un solo cuadro estático.
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let last = performance.now();
     const tick = (now) => {
       const dt = Math.min((now - last) / 1000, 0.05);
@@ -1258,7 +1363,7 @@ class Component extends DCLogic {
         ctx.fillStyle = "rgba(245,237,226," + (b.alpha * 0.7).toFixed(3) + ")";
         ctx.fill();
       }
-      raf = requestAnimationFrame(tick);
+      if (!reduceMotion) raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
     this._cleanup = () => { cancelAnimationFrame(raf); window.removeEventListener("resize", resize); };
